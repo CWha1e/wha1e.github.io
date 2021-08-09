@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ctfhub web之文件上传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfhub文件上传">
+<meta property="og:url" content="http://example.com/2021/04/15/ctfhub%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0wp/index.html">
+<meta property="og:site_name" content="wha1e乐园">
+<meta property="og:description" content="ctfhub web之文件上传">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC.png?versionId=CAEQDhiBgIDlw6TgxhciIDZkODI4ZmVkNzJhYjQxMjBiN2JkYjIzODM3OTc0OWE0">
+<meta property="og:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD1.png?versionId=CAEQDhiBgID3vcP3xhciIGVlYmM3NzYzNzgzNjQ1M2Q5ZGI3ZWU0NTAzOTAzMDE4">
+<meta property="og:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD2.png?versionId=CAEQDhiBgMD2k77.xhciIGRjNThlNDE0Yjc1MDQ4NGFiMzAzNjJkNzRjMzIwMTI1">
+<meta property="og:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD4.png?versionId=CAEQDhiBgMCArsz.xhciIGU4ZjRhNzI1OWFkZDQ5MjdhMWRlMTkxOTc2MTZhMjhi">
+<meta property="og:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD3.png?versionId=CAEQDhiBgMDrk77.xhciIDkxOGRjOTJlZjA5NjRkYWNhZThhMTkwMDQ0YmY4YjBk">
+<meta property="og:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%871.png?versionId=CAEQDhiBgMC4_IH_xhciIDU0Y2EwNTc2ZjRlZjQ1ZGM5MTQ5MTcyZGVmOTU3ZmQ0">
+<meta property="og:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.png?versionId=CAEQDhiBgIDqj4f_xhciIGIxZWYxZmZhMGY1NjQ0ZWRhOTc5ODUxYTljYjE2NTZk">
+<meta property="article:published_time" content="2021-04-15T11:24:40.922Z">
+<meta property="article:modified_time" content="2021-05-25T08:42:54.893Z">
+<meta property="article:author" content="wha1e">
+<meta property="article:tag" content="文件上传">
+<meta property="article:tag" content="write up">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC.png?versionId=CAEQDhiBgIDlw6TgxhciIDZkODI4ZmVkNzJhYjQxMjBiN2JkYjIzODM3OTc0OWE0">
+
+<link rel="canonical" href="http://example.com/2021/04/15/ctfhub%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0wp/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ctfhub文件上传 | wha1e乐园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">wha1e乐园</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/15/ctfhub%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0wp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="wha1e">
+      <meta itemprop="description" content="塔塔开,一直摸塔塔开">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wha1e乐园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ctfhub文件上传
+        </h1>
+
+        <div class="post-meta">
+
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-15 19:24:40" itemprop="dateCreated datePublished" datetime="2021-04-15T19:24:40+08:00">2021-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-25 16:42:54" itemprop="dateModified" datetime="2021-05-25T16:42:54+08:00">2021-05-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>ctfhub web之文件上传</p>
+<span id="more"></span>
+
+<h4 id="无验证"><a href="#无验证" class="headerlink" title="无验证"></a>无验证</h4><p>编写一句话木马并上传<br><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC.png?versionId=CAEQDhiBgIDlw6TgxhciIDZkODI4ZmVkNzJhYjQxMjBiN2JkYjIzODM3OTc0OWE0"></p>
+<p>获取相对路径</p>
+<p>upload/shell.php</p>
+<p>打开中国蚁剑上传</p>
+<p>右键–&gt;添加数据–&gt;网址+相对路径–&gt;打开flag.php</p>
+<p>获取flag</p>
+<h4 id="前端验证"><a href="#前端验证" class="headerlink" title="前端验证"></a>前端验证</h4><p>右键查看源码，发现该网站只支持”jpg”、”png”、”gif”,所以将一句话木马后缀名添加”.jpg”上传</p>
+<p>burp suite抓包–&gt;将一句话木马后缀名恢复成”.php”，放包</p>
+<p>上蚁剑。</p>
+<h4 id="htaccess"><a href="#htaccess" class="headerlink" title=".htaccess"></a>.htaccess</h4><h5 id="htaccess是什么？"><a href="#htaccess是什么？" class="headerlink" title=".htaccess是什么？"></a>.htaccess是什么？</h5><p> .htaccess叫分布式配置文件，全称是Hypertext Access(超文本入口),它提供了针对目录改变配置的方法——在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。并且子目录中的指令会覆盖更高级目录或者主服务器配置文件中的指令。</p>
+<p>作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。.htaccess文件是用于apache服务器下的控制文件访问的配置文件，因此Nginx下是不会生效的。.htaccess可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档、文件的跳转等功能。</p>
+<h5 id="htaccess-文件上传漏洞原理："><a href="#htaccess-文件上传漏洞原理：" class="headerlink" title=".htaccess 文件上传漏洞原理："></a>.htaccess 文件上传漏洞原理：</h5><p>一般.htaccess可以用来留后门和针对黑名单绕过</p>
+<p>创建一个txt写入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application&#x2F;x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
+
+<p>把”jpg”文件当作”php”文件解析</p>
+<p>重命名为”.htaccess”</p>
+<p>另一种做法：封装：<br>&lt;FilesMatch “1”&gt;<br>SetHandler application/x-httpd-php<br><br>此方法将名为”1”的文件解析为”php”</p>
+<h5 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h5><p>上传”.htaccess”文件，提交</p>
+<p>目的是替换原有的”.htaccess”文件</p>
+<p>上传”一句话木马.jpg”，提交</p>
+<p>上蚁剑。</p>
+<h4 id="MEMI绕过"><a href="#MEMI绕过" class="headerlink" title="MEMI绕过"></a>MEMI绕过</h4><h5 id="什么是MEMI"><a href="#什么是MEMI" class="headerlink" title="什么是MEMI"></a>什么是MEMI</h5><p>MIME(Multipurpose Internet Mail Extensions)多用途互联网邮件扩展类型。是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。</p>
+<h5 id="MEMI绕过的原理"><a href="#MEMI绕过的原理" class="headerlink" title="MEMI绕过的原理"></a>MEMI绕过的原理</h5><p>部分Web应用系统判定文件类型是通过content-type字段，黑客可以通过抓包，将content-type字段改为常见的图片类型，如image/gif，从而绕过校验。</p>
+<h5 id="常见的MIME类型"><a href="#常见的MIME类型" class="headerlink" title="常见的MIME类型"></a>常见的MIME类型</h5><p>text/plain（纯文本）<br>text/html（HTML文档）<br>text/javascript（js代码）<br>application/xhtml+xml（XHTML文档）<br>image/gif（GIF图像）<br>image/jpeg（JPEG图像）<br>image/png（PNG图像）<br>video/mpeg（MPEG动画）<br>application/octet-stream（二进制数据）<br>application/pdf（PDF文档）</p>
+<h5 id="解题-1"><a href="#解题-1" class="headerlink" title="解题"></a>解题</h5><p>上传”一句话木马.php”,Burp Suit抓包</p>
+<p>raw栏，修改Conte-Type: application/octet-stream为</p>
+<p>Conte-Type: image/png</p>
+<p>放包</p>
+<p>上蚁剑。</p>
+<h4 id="文件头检查"><a href="#文件头检查" class="headerlink" title="文件头检查"></a>文件头检查</h4><p>提交”一句话木马.php”文件后报错，返回为只允许”jpeg,jpg,png,gif”类型文件</p>
+<p>上传”一句话木马.php”，Burp Suite抓包；</p>
+<p>修改Content-Type: image/gif</p>
+<p>给一句话木马前添加”gif”文件的文件头，”GIF89a”,放包；</p>
+<p>上蚁剑。</p>
+<h4 id="00截断"><a href="#00截断" class="headerlink" title="00截断"></a>00截断</h4><p>先上个图</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD1.png?versionId=CAEQDhiBgID3vcP3xhciIGVlYmM3NzYzNzgzNjQ1M2Q5ZGI3ZWU0NTAzOTAzMDE4"></p>
+<h5 id="什么是00截断"><a href="#什么是00截断" class="headerlink" title="什么是00截断"></a>什么是00截断</h5><p>00截断的原理，就是利用0x00是字符串的结束标识符，攻击者可以利用手动添加字符串标识符的方式来将后面的内容进行截断，而后面的内容又可以帮助我们绕过检测。</p>
+<p>需要注意的是，0x00截断是16进制的截断，需要修改16进制的数据头，如果使用burp，就要在Hex中对数据进行改写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00截断的限制条件是PHP&lt;5.3.29，且GPC关闭，一般在url上</span><br></pre></td></tr></table></figure>
+
+<p>在url中 %00 表示ascll码中的 0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束。</p>
+<h5 id="表达方式"><a href="#表达方式" class="headerlink" title="表达方式"></a>表达方式</h5><p>0x00 ， %00 ， /00 </p>
+<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><p>上传”一句话木马.php%00.jpg”时，后台读取到”一句话木马.php”就停止了。</p>
+<h5 id="解题-2"><a href="#解题-2" class="headerlink" title="解题"></a>解题</h5><p>上传一句话”1.php”，BP抓包</p>
+<p>修改如下</p>
+<ol>
+<li>Post添加1.php%00</li>
+<li>filename修改为”1.jpg”</li>
+</ol>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD2.png?versionId=CAEQDhiBgMD2k77.xhciIGRjNThlNDE0Yjc1MDQ4NGFiMzAzNjJkNzRjMzIwMTI1"></p>
+<p>放包</p>
+<p>上蚁剑？</p>
+<p>踩坑预警</p>
+<p><a target="_blank" rel="noopener" href="http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/?road=/var/www/html/upload/1.php">http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/?road=/var/www/html/upload/1.php</a></p>
+<p>错误演示</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD4.png?versionId=CAEQDhiBgMCArsz.xhciIGU4ZjRhNzI1OWFkZDQ5MjdhMWRlMTkxOTc2MTZhMjhi"></p>
+<p>将”?road=/var/www/html”删除，直接访问</p>
+<p><a target="_blank" rel="noopener" href="http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/upload/1.php">http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/upload/1.php</a></p>
+<p>正确连法</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD3.png?versionId=CAEQDhiBgMDrk77.xhciIDkxOGRjOTJlZjA5NjRkYWNhZThhMTkwMDQ0YmY4YjBk"></p>
+<p>粘贴一段原话</p>
+<p><em><u>“action=?road=var/www/html/upload/“和$des = $_GET[‘road’] . “/“ . rand(10, 99) . date(“YmdHis”) . “.” . $ext;这段代码的意思是将上传的文件放在upload文件夹中，而直接访问?road=var/www/html/upload/会再次调用代码（本来会报错，但@和服务器端都抑制了报错），所以只需要访问/upload/1.php就可以了</u></em></p>
+<p>连接成功，获取flag！</p>
+<h4 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h4><p>打开靶机上传一句话成功后发现并不是我们想要的结果</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%871.png?versionId=CAEQDhiBgMC4_IH_xhciIDU0Y2EwNTc2ZjRlZjQ1ZGM5MTQ5MTcyZGVmOTU3ZmQ0"></p>
+<p>根据提示使用双写绕过：</p>
+<p>BP抓包；</p>
+<p>将文件后缀名修改为”pphphp”；</p>
+<p>放包；</p>
+<p>上蚁剑。</p>
+<p>至此文件上传告一段落</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.png?versionId=CAEQDhiBgIDqj4f_xhciIGIxZWYxZmZhMGY1NjQ0ZWRhOTc5ODUxYTljYjE2NTZk"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag"># 文件上传</a>
+              <a href="/tags/write-up/" rel="tag"># write up</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/15/%E4%B8%AD%E5%9B%BD%E8%9A%81%E5%89%91%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="prev" title="蚁剑使用">
+      <i class="fa fa-chevron-left"></i> 蚁剑使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/17/ctfhub%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2wp/" rel="next" title="ctfhub信息泄露">
+      ctfhub信息泄露 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E9%AA%8C%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">无验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E9%AA%8C%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">前端验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#htaccess"><span class="nav-number">3.</span> <span class="nav-text">.htaccess</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#htaccess%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">.htaccess是什么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#htaccess-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">.htaccess 文件上传漏洞原理：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">解题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MEMI%E7%BB%95%E8%BF%87"><span class="nav-number">4.</span> <span class="nav-text">MEMI绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMEMI"><span class="nav-number">4.1.</span> <span class="nav-text">什么是MEMI</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MEMI%E7%BB%95%E8%BF%87%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">MEMI绕过的原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84MIME%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">常见的MIME类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98-1"><span class="nav-number">4.4.</span> <span class="nav-text">解题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A3%80%E6%9F%A5"><span class="nav-number">5.</span> <span class="nav-text">文件头检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#00%E6%88%AA%E6%96%AD"><span class="nav-number">6.</span> <span class="nav-text">00截断</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF00%E6%88%AA%E6%96%AD"><span class="nav-number">6.1.</span> <span class="nav-text">什么是00截断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E6%96%B9%E5%BC%8F"><span class="nav-number">6.2.</span> <span class="nav-text">表达方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">6.3.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98-2"><span class="nav-number">6.4.</span> <span class="nav-text">解题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="nav-number">7.</span> <span class="nav-text">双写绕过</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wha1e"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">wha1e</p>
+  <div class="site-description" itemprop="description">塔塔开,一直摸塔塔开</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wha1e</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":300,"height":400},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

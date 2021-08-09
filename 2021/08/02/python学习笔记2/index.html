@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="python学习第二站，上一篇cv了一堆基本基本概念，这一篇的话转战实操了，这一篇的话我的计划是所有代码纯自己手打的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python学习之路2">
+<meta property="og:url" content="http://example.com/2021/08/02/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/index.html">
+<meta property="og:site_name" content="wha1e乐园">
+<meta property="og:description" content="python学习第二站，上一篇cv了一堆基本基本概念，这一篇的话转战实操了，这一篇的话我的计划是所有代码纯自己手打的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-02T07:15:15.183Z">
+<meta property="article:modified_time" content="2021-08-09T01:06:49.854Z">
+<meta property="article:author" content="wha1e">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/08/02/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python学习之路2 | wha1e乐园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">wha1e乐园</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/02/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="wha1e">
+      <meta itemprop="description" content="塔塔开,一直摸塔塔开">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wha1e乐园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python学习之路2
+        </h1>
+
+        <div class="post-meta">
+
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-02 15:15:15" itemprop="dateCreated datePublished" datetime="2021-08-02T15:15:15+08:00">2021-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-09 09:06:49" itemprop="dateModified" datetime="2021-08-09T09:06:49+08:00">2021-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>python学习第二站，上一篇cv了一堆基本基本概念，这一篇的话转战实操了，这一篇的话我的计划是所有代码纯自己手打的。</p>
+<span id="more"></span>
+
+<h1 id="编程基本技能"><a href="#编程基本技能" class="headerlink" title="编程基本技能"></a>编程基本技能</h1><h2 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h2><p>记录一点点基本写法和基本函数</p>
+<p><strong>斐波纳契数列</strong></p>
+<p>我的写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#输出10组</span></span><br><span class="line">a=n=<span class="number">0</span>;b=<span class="number">1</span></span><br><span class="line">print(a,end=<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">print(b,end=<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line"><span class="keyword">while</span> n&lt;<span class="number">8</span>:</span><br><span class="line">    c=a+b</span><br><span class="line">    print(c,end=<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    a=b</span><br><span class="line">    b=c</span><br><span class="line">    n+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>大佬的优化写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a, b, n= <span class="number">0</span>, <span class="number">1</span> ,<span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> n &lt; <span class="number">8</span>:</span><br><span class="line">    print(b,end=<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    a, b = b, a+b</span><br><span class="line">    c+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>亮点在于免去了参数c的引用，学废了🐎。</p>
+<p><strong>无限循环：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> var &lt; <span class="number">1</span>:</span><br><span class="line">    print(n)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>while 循环使用 else 语句</strong></p>
+<p>如果 while 后面的条件语句为 false 时，则执行 else 的语句块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> n &lt; <span class="number">10</span>:</span><br><span class="line">    print(n,end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    n+=<span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>for 语句</strong></p>
+<p>Python for 循环可以遍历任何可迭代对象，如一个列表或者一个字符串。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="string">&#x27;wha1e&#x27;</span>,<span class="string">&#x27;pi&#x27;</span>,<span class="string">&#x27;19&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">    print(x)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>range()函数</strong></p>
+<p>可以用于遍历数字序列，生成数列。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+<p>此函数还可以指定区间和步长：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>,<span class="number">10</span>,<span class="number">1</span>):</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>range()函数和len()函数结合姿势：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="string">&#x27;wha1e&#x27;</span>,<span class="string">&#x27;19&#x27;</span>,<span class="string">&#x27;web&#x27;</span>,<span class="string">&#x27;misc&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(<span class="built_in">list</span>)):</span><br><span class="line">    print(i,<span class="built_in">list</span>[i])</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> wha1e</span><br><span class="line"><span class="number">1</span> <span class="number">19</span></span><br><span class="line"><span class="number">2</span> web</span><br><span class="line"><span class="number">3</span> misc</span><br></pre></td></tr></table></figure>
+
+
+
+<p>另外，range()函数还可以创建一个列表:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">5</span>))</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>break 和 continue 语句及循环中的 else 子句</strong></p>
+<p><strong>break</strong> 语句可以跳出 for 和 while 的循环体。如果你从 for 或 while 循环中终止，<strong>任何对应的循环 else 块将不执行</strong>。</p>
+<p>while中使用break：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> n &lt; <span class="number">5</span>:</span><br><span class="line">    n +=<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(n)</span><br><span class="line">print(<span class="string">&quot;循环结束&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line">循环结束</span><br></pre></td></tr></table></figure>
+
+
+
+<p>while 中使用 continue：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> n &lt; <span class="number">5</span>:</span><br><span class="line">    n +=<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    print(n)</span><br><span class="line">print(<span class="string">&quot;循环结束&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line">循环结束</span><br></pre></td></tr></table></figure>
+
+
+
+<p>循环语句可以有 else 子句，它在穷尽列表(以for循环)或条件变为 false (以while循环)导致循环终止时被执行，但循环被 break 终止时不执行。</p>
+<p>写一个循环用来查询质数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">j=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">100</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,i):</span><br><span class="line">        <span class="keyword">if</span> i%n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        j+=<span class="number">1</span></span><br><span class="line">        print(  i,end=<span class="string">&quot;,&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> j%<span class="number">5</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">&quot;&quot;</span>)</span><br><span class="line"><span class="comment">#感受：不得不说python写代码比C写起来舒服多了，可能是我C语言没学多少的缘故吧。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,</span><br><span class="line"><span class="number">13</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">23</span>,<span class="number">29</span>,</span><br><span class="line"><span class="number">31</span>,<span class="number">37</span>,<span class="number">41</span>,<span class="number">43</span>,<span class="number">47</span>,</span><br><span class="line"><span class="number">53</span>,<span class="number">59</span>,<span class="number">61</span>,<span class="number">67</span>,<span class="number">71</span>,</span><br><span class="line"><span class="number">73</span>,<span class="number">79</span>,<span class="number">83</span>,<span class="number">89</span>,<span class="number">97</span>,</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>pass 语句</strong></p>
+<p>Python pass是空语句，是为了保持程序结构的完整性。pass 不做任何事情，一般用做占位语句。</p>
+<p>在菜鸟教程没有看太明白是什么用处，从<a target="_blank" rel="noopener" href="https://blog.csdn.net/zha6476003/article/details/82756111">CSDN</a>得来一串解释：</p>
+<blockquote>
+<p><code>pass</code>主要作用就是占位，让代码整体完整。如果定义一个函数里面为空或一个判断写好了之后还没想好满足条件需要执行执行什么逻辑，又想留着后面使用，但是函数和判断里面为空，那么就会报错，当你还没想清楚函数内部内容，就可以用pass来进行填坑。</p>
+</blockquote>
+<p><strong>判断示意代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">numbers = <span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> numbers &lt;= <span class="number">1</span>:</span><br><span class="line">    print(<span class="string">&quot;小于1&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>定义函数示意代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">demo</span>(<span class="params">name</span>):</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="step2"><a href="#step2" class="headerlink" title="step2"></a>step2</h2><h3 id="Python3-函数"><a href="#Python3-函数" class="headerlink" title="Python3 函数"></a>Python3 函数</h3><p><strong>定义一个函数的姿势</strong></p>
+<ul>
+<li><p>函数代码块以 <strong>def</strong> 关键词开头，后接函数标识符名称和圆括号 **()**。</p>
+</li>
+<li><p>任何传入参数和自变量必须放在圆括号中间，圆括号之间可以用于定义参数。</p>
+</li>
+<li><p>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</p>
+</li>
+<li><p>函数内容以冒号 <strong>:</strong> 起始，并且缩进。</p>
+</li>
+<li><p><strong>return [表达式]</strong> 结束函数，选择性地返回一个值给调用方，不带表达式的 return 相当于返回 None。</p>
+</li>
+</ul>
+<p><strong>函数调用</strong></p>
+<p>定义一个函数：给了函数一个名称，指定了函数里包含的参数，和代码块结构。</p>
+<p>这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从 Python 命令提示符执行。</p>
+<p><strong>栗子：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">name</span>(<span class="params">a</span>):</span></span><br><span class="line">    print(<span class="string">&quot;your name is&quot;</span>, a)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">name(<span class="number">19</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>可更改(mutable)与不可更改(immutable)对象</strong></p>
+<p>在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。</p>
+<p><strong>不可变类型：</strong>变量赋值 <strong>a=5</strong> 后再赋值 <strong>a=10</strong>，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变 a 的值，相当于新生成了 a。</p>
+<p><strong>可变类型：</strong>变量赋值 <strong>la=[1,2,3,4]</strong> 后再赋值 <strong>la[2]=5</strong> 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。</p>
+<p>python 函数的参数传递：</p>
+<p><strong>不可变类型：</strong>类似 C++ 的值传递，如整数、字符串、元组。如 fun(a)，传递的只是 a 的值，没有影响 a 对象本身。如果在 fun(a) 内部修改 a 的值，则是新生成一个 a 的对象。</p>
+<p><strong>可变类型：</strong>类似 C++ 的引用传递，如 列表，字典。如 fun(la)，则是将 la 真正的传过去，修改后 fun 外部的 la 也会受影响</p>
+<p>python 中一切都是对象，严格意义我们不能说值传递还是引用传递，我们应该说**<font color="red">传不可变对象和传可变对象。</font>**</p>
+<p><strong>python 传不可变对象实例</strong></p>
+<p>通过<strong>id</strong>函数来查看内存地址变化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span>(<span class="params">a</span>):</span></span><br><span class="line">    print(<span class="built_in">id</span>(a))</span><br><span class="line">    a = <span class="number">10</span></span><br><span class="line">    print(<span class="built_in">id</span>(a))</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">print(<span class="built_in">id</span>(a))</span><br><span class="line">change(a)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2417164380464</span></span><br><span class="line"><span class="number">2417164380464</span></span><br><span class="line"><span class="number">2417164380752</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看见在调用函数前后，形参和实参指向的是同一个对象（对象 id 相同），在函数内部修改形参后，形参指向的是不同的 id。</p>
+<p><strong>python传可变对象实例</strong></p>
+<p>先上我的“举一反三”的结果：</p>
+<p>继续通过<strong>id函数来查</strong>，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span>(<span class="params">a</span>):</span></span><br><span class="line">    print(<span class="built_in">id</span>(a))</span><br><span class="line">    a = [<span class="string">&#x27;wha1e&#x27;</span>,<span class="string">&#x27;19&#x27;</span>]</span><br><span class="line">    print(<span class="built_in">id</span>(a))</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">print(<span class="built_in">id</span>(a))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2006868047552</span></span><br><span class="line"><span class="number">2006868047552</span></span><br><span class="line"><span class="number">2006868352192</span></span><br></pre></td></tr></table></figure>
+
+<p>证明我还是一知半解，不清楚。</p>
+<blockquote>
+<p>下面附上教程写法：</p>
+<p>可变对象在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。传入函数的和在末尾添加新内容的对象用的是同一个引用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span>(<span class="params"><span class="built_in">list</span></span>):</span></span><br><span class="line">    <span class="built_in">list</span>.append([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">    print(<span class="string">&quot;函数内取值：&quot;</span>, <span class="built_in">list</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="built_in">list</span> = [<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>]</span><br><span class="line">change(<span class="built_in">list</span>)</span><br><span class="line">print(<span class="string">&quot;函数外取值：&quot;</span>, <span class="built_in">list</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数内取值： [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]]</span><br><span class="line">函数外取值： [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>看过教程做法之后我陷入了沉思，我自己到底写了一个神🐎，写了个芥末。</p>
+<!--终究看概念性的东西实在枯燥无味，看视频又有点耐不住性子，实操键盘手感太差，打字太累。惨惨，fw有这么多借口。今日先这样，明天再继续，话不多说刷题先！-->
+
+<!--最终又🕊了两天-->
+
+
+
+<p>🕊</p>
+<blockquote>
+<h3 id="Python3-迭代器与生成器"><a href="#Python3-迭代器与生成器" class="headerlink" title="Python3 迭代器与生成器"></a>Python3 迭代器与生成器</h3><p><strong>迭代器</strong></p>
+<p>迭代是Python最强大的功能之一，是访问集合元素的一种方式。</p>
+<p>迭代器是一个可以记住遍历的位置的对象。</p>
+<p>迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。</p>
+<p>迭代器有两个基本的方法：<strong>iter()</strong> 和 **next()**。</p>
+<p>字符串，列表或元组对象都可用于创建迭代器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">i = <span class="built_in">iter</span>(<span class="built_in">list</span>)</span><br><span class="line">print(i)</span><br><span class="line">print(<span class="built_in">next</span>(i))</span><br><span class="line">print(<span class="built_in">next</span>(i))</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;list_iterator <span class="built_in">object</span> at <span class="number">0x0000020F14371E20</span>&gt;</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>优化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">i    = <span class="built_in">iter</span>(<span class="built_in">list</span>)   <span class="comment"># 创建迭代器对象</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> i:</span><br><span class="line">    print(n,end = <span class="string">&#x27;,&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="built_in">list</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">i    = <span class="built_in">iter</span>(<span class="built_in">list</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        print(<span class="built_in">next</span>(i),end = <span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        sys.exit()</span><br><span class="line"><span class="comment">#这段代码是粘贴来的，短短几行目前水平还是写不出</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>创建一个迭代器</strong></p>
+<p>把一个类作为一个迭代器使用需要在类中实现两个方法<code>__iter__()</code>与<code>__next__()</code> 。</p>
+<p>类都有一个构造函数，Python 的构造函数为<code> __init__()</code>, 它会在对象初始化的时候执行。</p>
+<p><code>__iter__()</code> 方法返回一个特殊的迭代器对象， 这个迭代器对象实现了 <strong>next</strong>() 方法并通过 StopIteration 异常标识迭代的完成。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyNumbers</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.a = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span>(<span class="params">self</span>):</span></span><br><span class="line">        x = self.a</span><br><span class="line">        self.a += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    </span><br><span class="line">myclass = MyNumbers()</span><br><span class="line">myiter  = <span class="built_in">iter</span>(myclass)</span><br><span class="line"></span><br><span class="line">print(<span class="built_in">next</span>(myiter))</span><br><span class="line">print(<span class="built_in">next</span>(myiter))</span><br><span class="line">print(<span class="built_in">next</span>(myiter))</span><br><span class="line">print(<span class="built_in">next</span>(myiter))</span><br><span class="line">print(<span class="built_in">next</span>(myiter))</span><br></pre></td></tr></table></figure>
+
+<!--不会这玩意，就抄一下-->
+
+
+
+<p><strong>StopIteration</strong></p>
+<p>StopIteration 异常用于标识迭代的完成，防止出现无限循环的情况，在 <code>__next__()</code> 方法中我们可以设置在完成指定循环次数后触发 StopIteration 异常来结束迭代。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyNumbers</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span>(<span class="params">self</span>):</span></span><br><span class="line">    self.a = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> self</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__next__</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.a &lt;= <span class="number">20</span>:</span><br><span class="line">      x = self.a</span><br><span class="line">      self.a += <span class="number">1</span></span><br><span class="line">      <span class="keyword">return</span> x</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      <span class="keyword">raise</span> StopIteration</span><br><span class="line"> </span><br><span class="line">myclass = MyNumbers()</span><br><span class="line">myiter = <span class="built_in">iter</span>(myclass)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> myiter:</span><br><span class="line">  print(x)</span><br></pre></td></tr></table></figure>
+
+<p><strong>生成器</strong></p>
+<p>在 Python 中，使用了 yield 的函数被称为生成器（generator）。</p>
+<p>跟普通函数不同的是，生成器是一个返回迭代器的函数，只能用于迭代操作，更简单点理解生成器就是一个迭代器。</p>
+<p>在调用生成器运行的过程中，每次遇到 yield 时函数会暂停并保存当前所有的运行信息，返回 yield 的值, 并在下一次执行 next() 方法时从当前位置继续运行。</p>
+<p>调用一个生成器函数，返回的是一个迭代器对象。</p>
+<p>以下实例使用 yield 实现斐波那契数列：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fibonacci</span>(<span class="params">n</span>):</span> <span class="comment"># 生成器函数 - 斐波那契</span></span><br><span class="line">    a, b, counter = <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> (counter &gt; n): </span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">yield</span> a</span><br><span class="line">        a, b = b, a + b</span><br><span class="line">        counter += <span class="number">1</span></span><br><span class="line">f = fibonacci(<span class="number">10</span>) <span class="comment"># f 是一个迭代器，由生成器返回生成</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span> (<span class="built_in">next</span>(f), end=<span class="string">&quot; &quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        sys.exit()</span><br></pre></td></tr></table></figure>
+
+<p>本来想着自己敲代码的，出了点状况没心思学，结果就全粘贴了。把它改成引用，留一个坑。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/10/kali_misc%E5%B7%A5%E5%85%B7/" rel="prev" title="kali_misc工具">
+      <i class="fa fa-chevron-left"></i> kali_misc工具
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/05/python%E5%AE%9E%E6%93%8D%E6%91%98%E5%BD%95/" rel="next" title="python实操摘录">
+      python实操摘录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">编程基本技能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#step1"><span class="nav-number">1.1.</span> <span class="nav-text">step1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step2"><span class="nav-number">1.2.</span> <span class="nav-text">step2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python3-%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">Python3 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python3-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">Python3 迭代器与生成器</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wha1e"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">wha1e</p>
+  <div class="site-description" itemprop="description">塔塔开,一直摸塔塔开</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wha1e</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":300,"height":400},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

